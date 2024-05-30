@@ -1,0 +1,40 @@
+.container {
+  margin: 20px 30px;
+
+  .block {
+    margin-bottom: 20px;
+  }
+
+  .preview {
+    &_label {
+      font-size: 3rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    &_description {
+      font-size: 1.125rem;
+      font-weight: 300;
+    }
+  }
+
+
+  .buttonGroup {
+    &_button {
+      width: 170px;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &__outline {
+        background-color: inherit;
+        border-color: var(--primary-color);
+
+        &:hover {
+          background-color: #faf5d9;
+        }
+      }
+    }
+  }
+}
