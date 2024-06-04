@@ -1,18 +1,16 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://test.flirtex.fun/api/v1',
   timeout: 60000,
-  // prepareHeaders: (headers, { getState }) => {
-  //   // By default, if we have a token in the store, let's use that for authenticated requests
-  //   const { accessToken } = (getState() as RootState).authReducer;
-  //
-  //   if (accessToken) {
-  //     headers.set('authorization', `Bearer ${accessToken}`);
-  //   }
-  //
-  //   return headers;
-  // },
+  prepareHeaders: (headers) => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      headers.set('authorization', `Bearer ${accessToken}`);
+    }
+
+    return headers;
+  },
 });
 
 // const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
