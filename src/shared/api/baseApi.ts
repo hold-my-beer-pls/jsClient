@@ -1,5 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from './baseQuery';
+import { baseQueryWithRetry } from './baseQuery';
 import { CustomError } from '../interfaces';
 
 export const baseApi = createApi({
@@ -14,7 +14,7 @@ export const baseApi = createApi({
   /**
    * A bare bones base query would just be `baseQuery: fetchBaseQuery({ baseUrl: '/' })`
    */
-  baseQuery: baseQuery as BaseQueryFn<string | FetchArgs, unknown, CustomError, {}, FetchBaseQueryMeta>,
+  baseQuery: baseQueryWithRetry as BaseQueryFn<string | FetchArgs, unknown, CustomError, {}, FetchBaseQueryMeta>,
   /**
    * This api has endpoints injected in adjacent files,
    * which is why no endpoints are shown below.

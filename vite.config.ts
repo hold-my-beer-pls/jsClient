@@ -19,7 +19,7 @@ export default defineConfig(({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        '@': pathResolve('src'), // 设置 @ 指向 src
+        '@': pathResolve('src'),
       },
     },
   };

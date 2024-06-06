@@ -3,7 +3,11 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetMyProfileQuery } from '@/entities/User';
 
 export const Layout = () => {
-  useGetMyProfileQuery(localStorage.getItem('accessToken') ? undefined : skipToken);
+  const { isLoading } = useGetMyProfileQuery(localStorage.getItem('accessToken') ? undefined : skipToken);
+
+  if (isLoading) {
+    return <div>loading</div>;
+  }
 
   return <Outlet />;
 };

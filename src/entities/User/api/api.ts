@@ -18,6 +18,7 @@ export const userApi = baseApi.injectEndpoints({
         const { accessToken, refreshToken } = response;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+
         return response;
       },
     }),
@@ -31,4 +32,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetMyProfileQuery, useLoginMutation } = userApi;
+export const { useGetMyProfileQuery, useLoginMutation, useLazyGetMyProfileQuery } = userApi;
