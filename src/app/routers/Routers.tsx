@@ -1,16 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from '@/app/layout';
 import { HomePage } from '@/pages/HomePage';
 import { Quiz } from '@/pages/Quiz';
 import { AdminPanel } from '@/pages/AdminPanel';
-import { Authorization } from '@/features/Authorization';
+import { Header } from '@/widgets/Header';
+import { Layout } from '../layout/Layout.tsx';
 
 export const Routers = () => {
   const isAdmin = true;
+
   return (
     <Routes>
-      <Route element={<Authorization />}>
-        <Route element={<Layout />}>
+      <Route element={<Layout />}>
+        <Route element={<Header />}>
           <Route path="/profile" element={<div>profile</div>} />
           <Route path="/" element={<HomePage />} />
           {isAdmin && <Route path="/admin-panel" element={<AdminPanel />} />}

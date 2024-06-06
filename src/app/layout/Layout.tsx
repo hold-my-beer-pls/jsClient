@@ -1,20 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import styles from './Layout.module.scss';
-import JSLogoIcon from '@/shared/assets/JavaScriptLogo.svg';
-import ProfileIcon from '@/shared/assets/icons/profile-circle.svg';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useGetMyProfileQuery } from '@/entities/User';
 
 export const Layout = () => {
-  return (
-    <>
-      <div className={styles.toolbar}>
-        <div className={styles.toolbar_logo}>
-          <JSLogoIcon />
-        </div>
-        <div className={styles.toolbar_profile}>
-          <ProfileIcon />
-        </div>
-      </div>
-      <Outlet />
-    </>
-  );
+  useGetMyProfileQuery(localStorage.getItem('accessToken') ? undefined : skipToken);
+
+  return <Outlet />;
 };
