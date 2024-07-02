@@ -1,0 +1,8 @@
+.secondary {
+  background-color: inherit;
+  border-color: var(--primary-color);
+
+  &:hover {
+    background-color: #faf5d9;
+  }
+}

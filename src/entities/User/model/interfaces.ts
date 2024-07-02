@@ -1,8 +1,13 @@
+export const enum Roles {
+  admin = 'ADMIN',
+  user = 'USER',
+}
+
 export interface Profile {
   email: string;
   id: string;
   name: string | null;
-  roles: string[];
+  roles: Roles[];
 }
 
 export interface Tokens {

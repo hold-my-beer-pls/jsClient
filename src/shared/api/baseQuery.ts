@@ -1,7 +1,7 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError, retry } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'api/v1',
+  baseUrl: '/api/v1',
   timeout: 60000,
   prepareHeaders: (headers) => {
     const accessToken = localStorage.getItem('accessToken');

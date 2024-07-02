@@ -5,37 +5,46 @@
   justify-content: space-between;
 
   &_logo {
+    cursor: pointer;
     height: 44px;
     width: 44px;
   }
 
   &_profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    line-height: 1.2;
+    .profile {
+      display: flex;
 
-    &_contour {
-      color: #857f5b;
-      border: 1px solid #857f5b;
-      width: 20px;
-      height: 20px;
-      border-radius: 20px;
-      font-weight: 500;
+      &_icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        line-height: 1.2;
+
+        &:hover {
+          background-color: #fafaf4;
+          border-radius: 6px;
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+          stroke: #857f5b;
+        }
+
+        &__word {
+          color: #857f5b;
+          border: 1px solid #857f5b;
+          width: 20px;
+          height: 20px;
+          border-radius: 20px;
+          font-weight: 500;
+        }
+      }
     }
 
-    &:hover {
-      background-color: #fafaf4;
-      border-radius: 6px;
-    }
 
-    svg {
-      width: 24px;
-      height: 24px;
-      stroke: #857f5b;
-    }
   }
 }
