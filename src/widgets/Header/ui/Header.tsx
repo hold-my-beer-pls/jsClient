@@ -3,19 +3,25 @@ import { useState } from 'react';
 import styles from './Header.module.scss';
 import JSLogoIcon from '@/shared/assets/JavaScriptLogo.svg';
 import ProfileIcon from '@/shared/assets/icons/profile-circle.svg';
-import LogoutIcon from '@/shared/assets/icons/logout.svg';
 import { useAppSelector } from '@/shared/lib/hooks';
-import { selectUser } from '@/entities/User';
+import { selectUser, useLazyLogoutQuery } from '@/entities/User';
 // кросс импорт!
 import { Authorization } from '@/widgets/Authorization';
 import { Navigation } from '@/shared/constants';
+import { Dropdown } from '@/shared/ui';
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { name, email, isAuthenticated } = useAppSelector(selectUser);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { name, email, isAuthenticated } = useAppSelector(selectUser);
+  const [logout] = useLazyLogoutQuery();
 
   const profileWord = name ? name[0] : email[0];
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
 
   return (
     <>
@@ -26,14 +32,17 @@ export const Header = () => {
         <div className={styles.toolbar_profile}>
           <div className={styles.profile}>
             {isAuthenticated ? (
-              <>
-                <div className={styles.profile_icon} onClick={() => navigate(Navigation.profile)} role="presentation">
-                  <div className={styles.profile_icon__word}>{profileWord || '?'}</div>
-                </div>
-                <div className={styles.profile_icon} onClick={() => alert('logout')} role="presentation">
-                  <LogoutIcon />
-                </div>
-              </>
+              <Dropdown className={styles.dropdown} placement="bottom-start">
+                <div className={styles.trigger_icon}>{profileWord || '?'}</div>
+                <>
+                  <div className={styles.content_item} onClick={() => navigate(Navigation.profile)} role="presentation">
+                    Профиль
+                  </div>
+                  <div className={styles.content_item} onClick={handleLogout} role="presentation">
+                    Выйти
+                  </div>
+                </>
+              </Dropdown>
             ) : (
               <div className={styles.profile_icon} onClick={() => setModalIsOpen(true)} role="presentation">
                 <ProfileIcon />

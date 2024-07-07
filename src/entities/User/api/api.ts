@@ -29,7 +29,12 @@ export const userApi = baseApi.injectEndpoints({
         body: loginData,
       }),
     }),
+    logout: build.query<void, void>({
+      query: () => ({
+        url: '/logout',
+      }),
+    }),
   }),
 });
 
-export const { useGetMyProfileQuery, useLoginMutation } = userApi;
+export const { useGetMyProfileQuery, useLoginMutation, useLazyLogoutQuery } = userApi;

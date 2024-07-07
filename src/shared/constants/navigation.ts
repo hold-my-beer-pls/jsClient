@@ -1,7 +1,6 @@
 export const enum Navigation {
   admin = '/admin',
-  createQuestion = 'create-question',
-  questionsList = 'questions-list',
+  questionsList = 'questions',
   profile = '/profile',
   quiz = '/quiz',
   home = '/',

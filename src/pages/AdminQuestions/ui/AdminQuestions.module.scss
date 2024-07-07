@@ -3,3 +3,9 @@
   display: flex;
   flex-direction: column;
 }
+
+.formModal {
+  [class*='modal'] {
+    overflow: scroll;
+  }
+}

@@ -5,3 +5,5 @@ export { TextArea } from './TextArea/TextArea.tsx';
 export { Input } from './Input/Input.tsx';
 export { Radio } from './Radio/Radio.tsx';
 export { RadioGroup } from './RadioGroup/RadioGroup.tsx';
+export { Dropdown } from './Dropdown/Dropdown.tsx';
+export { Loader } from './Loader/Loader.tsx';

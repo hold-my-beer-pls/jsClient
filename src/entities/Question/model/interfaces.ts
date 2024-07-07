@@ -15,6 +15,10 @@ export interface QuestionRequest {
   correctAnswerNumber: number;
 }
 
+export interface QuestionUpdateRequest extends QuestionRequest {
+  id: string;
+}
+
 export interface QuestionResponse {
   id: string;
   question: string;
@@ -39,4 +43,9 @@ export interface QuestionQuery {
 
 export interface QuestionsAllQuery extends QuestionQuery {
   page?: number;
+}
+
+export interface UpdateVisibility {
+  id: string;
+  visible: boolean;
 }

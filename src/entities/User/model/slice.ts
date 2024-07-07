@@ -1,5 +1,6 @@
 import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
-import { Profile, userApi } from '@/entities/User';
+import { Profile } from './interfaces.ts';
+import { userApi } from '../api/api.ts';
 
 interface UserState extends Profile {
   isAuthenticated: boolean;
@@ -13,13 +14,16 @@ const initialState: UserState = {
   isAuthenticated: false,
 };
 
-const setUser = (state: Draft<UserState>, profile: Profile) => {
+const setUser = (
+  state: Draft<UserState>,
+  profile: Omit<UserState, 'isAuthenticated'> & Partial<Pick<UserState, 'isAuthenticated'>>,
+) => {
   const { name, id, email, roles } = profile;
   state.name = name;
   state.id = id;
   state.email = email;
   state.roles = roles;
-  state.isAuthenticated = true;
+  state.isAuthenticated = profile.isAuthenticated ?? true;
 };
 
 export const userSlice = createSlice({
@@ -32,6 +36,11 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addMatcher(userApi.endpoints.logout.matchFulfilled, (state) => {
+        setUser(state, initialState);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+      })
       .addMatcher(userApi.endpoints.getMyProfile.matchFulfilled, (state, { payload }) => {
         setUser(state, payload);
       })

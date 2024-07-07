@@ -14,6 +14,51 @@
     .profile {
       display: flex;
 
+      .dropdown {
+        [class*='trigger'] {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+          line-height: 1.2;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 6px;
+          }
+
+          .trigger_icon {
+            background-color: inherit;
+            color: #857f5b;
+            border: 1px solid #857f5b;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            font-weight: 500;
+          }
+        }
+
+        [class*='content'] {
+          display: flex;
+          flex-direction: column;
+
+          .content_item {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .dropdownWord {
+        color: #857f5b;
+        border: 1px solid #857f5b;
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        font-weight: 500;
+      }
+
       &_icon {
         display: flex;
         align-items: center;
@@ -24,8 +69,9 @@
         line-height: 1.2;
 
         &:hover {
-          background-color: #fafaf4;
+          background-color: rgba(0, 0, 0, 0.05);
           border-radius: 6px;
+          stroke: rgba(0, 0, 0, 0.9);
         }
 
         svg {
@@ -33,18 +79,7 @@
           height: 24px;
           stroke: #857f5b;
         }
-
-        &__word {
-          color: #857f5b;
-          border: 1px solid #857f5b;
-          width: 20px;
-          height: 20px;
-          border-radius: 20px;
-          font-weight: 500;
-        }
       }
     }
-
-
   }
 }

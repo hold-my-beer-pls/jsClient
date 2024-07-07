@@ -1,6 +1,12 @@
 import { baseApi } from '@/shared/api';
 import { PaginationResponse } from '@/shared/interfaces';
-import { QuestionRequest, QuestionResponse, QuestionsAllQuery } from '../model/interfaces.ts';
+import {
+  QuestionRequest,
+  QuestionResponse,
+  QuestionsAllQuery,
+  QuestionUpdateRequest,
+  UpdateVisibility,
+} from '../model/interfaces.ts';
 
 export const questionApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -9,15 +15,52 @@ export const questionApi = baseApi.injectEndpoints({
         url: '/questions/all',
         params: params ?? undefined,
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        if (currentArg && currentArg.page !== 0 && previousArg?.page === undefined) {
+          currentArg.page = 0;
+        }
+
+        return currentArg?.page !== previousArg?.page;
+      },
     }),
-    createQuestions: build.mutation<QuestionResponse, QuestionRequest>({
+    createQuestion: build.mutation<QuestionResponse, QuestionRequest>({
       query: (body) => ({
         url: '/questions',
         method: 'POST',
         body,
       }),
     }),
+    updateQuestion: build.mutation<QuestionResponse, QuestionUpdateRequest>({
+      query: ({ id, ...args }) => ({
+        url: `/questions/${id}`,
+        method: 'PUT',
+        body: args,
+      }),
+    }),
+    updateVisibility: build.mutation<void, UpdateVisibility>({
+      query: ({ id, visible }) => ({
+        url: `/questions/${id}`,
+        method: 'PATCH',
+        body: { visible },
+      }),
+    }),
+    deleteQuestion: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/questions/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useGetAllQuestionsQuery, useCreateQuestionsMutation } = questionApi;
+export const {
+  useDeleteQuestionMutation,
+  useGetAllQuestionsQuery,
+  useLazyGetAllQuestionsQuery,
+  useCreateQuestionMutation,
+  useUpdateVisibilityMutation,
+  useUpdateQuestionMutation,
+} = questionApi;

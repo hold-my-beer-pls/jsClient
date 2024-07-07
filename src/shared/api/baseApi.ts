@@ -1,6 +1,7 @@
 import { BaseQueryFn, createApi, FetchArgs, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithRetry } from './baseQuery';
 import { CustomError } from '../interfaces';
+import { QUESTION_TAG } from '@/shared/api/tagTypes.ts';
 
 export const baseApi = createApi({
   /**
@@ -21,4 +22,5 @@ export const baseApi = createApi({
    * If you want all endpoints defined in the same file, they could be included here instead
    */
   endpoints: () => ({}),
+  tagTypes: [QUESTION_TAG],
 });

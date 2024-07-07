@@ -1,15 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
+import { Layout } from '../layout/Layout.tsx';
 import { HomePage } from '@/pages/HomePage';
 import { Quiz } from '@/pages/Quiz';
 import { AdminPanel } from '@/pages/AdminPanel';
 import { Header } from '@/widgets/Header';
-import { Layout } from '../layout/Layout.tsx';
 import { Profile } from '@/pages/Profile/ui/Profile.tsx';
 import { Navigation } from '@/shared/constants';
-import { AdminCreateQuestion } from '@/pages/AdminCreateQuestion';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectUser } from '@/entities/User';
-import { AdminQuestionList } from '@/pages/AdminQuestionList';
+import { AdminQuestions } from '@/pages/AdminQuestions';
 
 export const Routers = () => {
   const { isAdmin } = useAppSelector(selectUser);
@@ -23,8 +22,7 @@ export const Routers = () => {
           {isAdmin && (
             <Route path={Navigation.admin}>
               <Route index element={<AdminPanel />} />
-              <Route path={Navigation.createQuestion} element={<AdminCreateQuestion />} />
-              <Route path={Navigation.questionsList} element={<AdminQuestionList />} />
+              <Route path={Navigation.questionsList} element={<AdminQuestions />} />
             </Route>
           )}
         </Route>
