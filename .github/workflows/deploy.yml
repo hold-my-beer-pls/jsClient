@@ -16,15 +16,16 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Availability check
+      - name: Ensure deployment directory exists and set permissions
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SERVER: ${{ secrets.SERVER }}
           USERNAME: ${{ secrets.USERNAME }}
         run: |
-          echo "Deploying to server... $SSH_PASSWORD ${SSH_PASSWORD}" 
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << 'EOF' 
-            ls
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << 'EOF'
+          sudo mkdir -p /var/www/duk
+          sudo chown -R $USERNAME:$USERNAME /var/www/duk
+          sudo chmod -R 755 /var/www/duk
           EOF
 
       - name: Install Node.js
