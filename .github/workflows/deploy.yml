@@ -18,7 +18,7 @@ jobs:
 
       - name: Availability check
         env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SERVER: ${{ secrets.SERVER }}
           USERNAME: ${{ secrets.USERNAME }}
         run: |
