@@ -16,52 +16,17 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Ensure deployment directory exists and set permissions
+      - name: Build and deploy on server
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SERVER: ${{ secrets.SERVER }}
           USERNAME: ${{ secrets.USERNAME }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << 'EOF'
-          sudo mkdir -p /var/www/duk
-          sudo chown -R $USERNAME:$USERNAME /var/www/duk
-          sudo chmod -R 755 /var/www/duk
-          EOF
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22.2.0'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build project
-        run: yarn build
-
-      - name: Copy build files via scp
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
-          SERVER: ${{ secrets.SERVER }}
-          USERNAME: ${{ secrets.USERNAME }}
-        run: sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -r build/* $USERNAME@$SERVER:/var/www/duk
-
-      - name: Copy Nginx config via scp
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
-          SERVER: ${{ secrets.SERVER }}
-          USERNAME: ${{ secrets.USERNAME }}
-        run: sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no nginx.conf $USERNAME@$SERVER:/etc/nginx/sites-available/duk
-
-
-      - name: Set up Nginx on server
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
-          SERVER: ${{ secrets.SERVER }}
-          USERNAME: ${{ secrets.USERNAME }}
-        run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << 'EOF'
-            sudo ln -sf /etc/nginx/sites-available/duk /etc/nginx/sites-enabled/
-            sudo nginx -t
+            cd ./client/jsClient
+            git pull origin main
+            yarn install
+            yarn build
+            sudo mv dist/* /var/www/duk
             sudo systemctl restart nginx
           EOF
