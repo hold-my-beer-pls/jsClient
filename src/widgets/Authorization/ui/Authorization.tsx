@@ -25,7 +25,7 @@ export const Authorization = ({ isOpen, onClose }: Props) => {
           </>
         ) : (
           <>
-            <Registration />
+            <Registration onSubmit={onClose} />
             <div onClick={() => setAuthState(Auth.login)} role="presentation">
               уже зарегистрированы?
             </div>
