@@ -37,4 +37,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetMyProfileQuery, useLoginMutation, useLazyLogoutQuery } = userApi;
+export const { useGetMyProfileQuery, useRegistrationMutation, useLoginMutation, useLazyLogoutQuery } = userApi;
