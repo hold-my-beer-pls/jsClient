@@ -1,0 +1,55 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.2.0'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build project
+        run: yarn build
+
+      - name: Copy build files via scp
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
+          SERVER: ${{ secrets.SERVER }}
+          USERNAME: ${{ secrets.USERNAME }}
+        run: sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -r build/* $USERNAME@$SERVER:/var/www/duk
+
+      - name: Copy Nginx config via scp
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
+          SERVER: ${{ secrets.SERVER }}
+          USERNAME: ${{ secrets.USERNAME }}
+        run: sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no nginx.conf $USERNAME@$SERVER:/etc/nginx/sites-available/duk
+
+
+      - name: Set up Nginx on server
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD_NEW }}
+          SERVER: ${{ secrets.SERVER }}
+          USERNAME: ${{ secrets.USERNAME }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << 'EOF'
+            sudo ln -sf /etc/nginx/sites-available/duk /etc/nginx/sites-enabled/
+            sudo nginx -t
+            sudo systemctl restart nginx
+          EOF
