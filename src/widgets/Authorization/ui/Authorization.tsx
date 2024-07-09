@@ -3,7 +3,7 @@ import styles from './Authorization.module.scss';
 import { Modal } from '@/shared/ui';
 import { Login } from '@/features/Authorization/Login';
 import { Registration } from '@/features/Authorization/Registration';
-import { Auth } from '@/widgets/Authorization/model/constants.ts';
+import { Auth } from '@/widgets/Authorization';
 
 interface Props {
   isOpen: boolean;

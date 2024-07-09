@@ -1,4 +1,4 @@
-export enum Auth {
+export const enum Auth {
   registration,
   login,
 }
