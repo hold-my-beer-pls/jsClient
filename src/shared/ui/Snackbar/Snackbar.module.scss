@@ -1,0 +1,98 @@
+@media (prefers-color-scheme: dark) {
+  .alert {
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .skeletonContainer {
+    box-shadow: 0 2px 5px 0 rgba(0 0 0 / 10%);
+
+    &:before {
+      background: linear-gradient(to right, transparent 0%, #cccccc, transparent 100%);
+    }
+  }
+}
+
+.container {
+  z-index: 999;
+  position: fixed;
+  min-width: 200px;
+  max-width: 350px;
+  display: flex;
+  bottom: 0;
+  animation: show-snackbar 200ms ease-in-out forwards;
+  font-size: 14px;
+  color: #FFFFFF;
+
+  &.hidden {
+    animation: hide-snackbar 200ms ease-in-out forwards;
+  }
+
+  &.withoutNavigation {
+    bottom: 0;
+  }
+
+  .alert {
+    background-color: color-mix(in srgb, #272F38, transparent 10%);
+    margin: 20px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      margin-right: 10px;
+
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      &.success svg {
+        stroke: #71E079;
+      }
+
+      &.info svg {
+        stroke: #F3C04B;
+      }
+
+      &.error svg {
+        stroke: #EE686F;
+      }
+
+      &.label svg {
+        font-weight: 500;
+      }
+    }
+
+    .description {
+    }
+
+    .closeText {
+      margin-left: auto;
+      font-weight: 500;
+      color: #3A95D5;
+    }
+  }
+}
+
+@keyframes show-snackbar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-snackbar {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+

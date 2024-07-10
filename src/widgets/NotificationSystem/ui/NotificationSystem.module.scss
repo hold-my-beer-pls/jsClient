@@ -1,0 +1,23 @@
+.snackbarList {
+  position: fixed;
+  display: flex;
+  flex-direction: column-reverse;
+  list-style: none;
+  overflow-x: hidden;
+  z-index: 999;
+  bottom: 0;
+
+  .item {
+    position: static;
+
+    &:first-of-type {
+      [class*='alert'] {
+        margin: 10px 10px 20px 10px;
+      }
+    }
+
+    [class*='alert'] {
+      margin: 10px
+    }
+  }
+}

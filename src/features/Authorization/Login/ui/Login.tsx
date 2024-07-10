@@ -3,13 +3,16 @@ import styles from './Login.module.scss';
 import { Authorization, useLoginMutation } from '@/entities/User';
 import { dataFromForm } from '@/shared/lib/handlers/dataFromForm.ts';
 import { Button } from '@/shared/ui';
+import { useNotification } from '@/shared/lib/hooks';
 
 interface Props {
   onSubmit: VoidFunction;
 }
 
 export const Login = ({ onSubmit }: Props) => {
-  const [loginFetch, { isError, isLoading }] = useLoginMutation();
+  const [loginFetch, { isError, isLoading, error }] = useLoginMutation();
+  useNotification(error);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userData = dataFromForm<Authorization>(e);
