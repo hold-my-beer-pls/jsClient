@@ -29,38 +29,54 @@ export const Form = ({ onSubmit, currentQuestion }: Props) => {
         <Radio
           name="radioAnswer"
           id="radioAnswer1"
-          value={0}
+          value={currentQuestion?.answers[0].id ?? 0}
           required
-          defaultChecked={currentQuestion?.correctAnswerId === currentQuestion?.answers[0].id}
+          defaultChecked={currentQuestion ? currentQuestion.correctAnswerId === currentQuestion.answers[0].id : true}
         >
-          <Input name="answer1" required defaultValue={currentQuestion?.answers[0].text} />
+          <Input
+            name={currentQuestion?.answers[0].id ?? 'answer1'}
+            required
+            defaultValue={currentQuestion?.answers[0].text}
+          />
         </Radio>
         <Radio
           name="radioAnswer"
           id="radioAnswer2"
-          value={1}
+          value={currentQuestion?.answers[1].id ?? 1}
           required
           defaultChecked={currentQuestion?.correctAnswerId === currentQuestion?.answers[1].id}
         >
-          <Input name="answer2" required defaultValue={currentQuestion?.answers[1].text} />
+          <Input
+            name={currentQuestion?.answers[1].id ?? 'answer2'}
+            required
+            defaultValue={currentQuestion?.answers[1].text}
+          />
         </Radio>
         <Radio
           name="radioAnswer"
           id="radioAnswer3"
-          value={2}
+          value={currentQuestion?.answers[2].id ?? 2}
           required
           defaultChecked={currentQuestion?.correctAnswerId === currentQuestion?.answers[2].id}
         >
-          <Input name="answer3" required defaultValue={currentQuestion?.answers[2].text} />
+          <Input
+            name={currentQuestion?.answers[2].id ?? 'answer3'}
+            required
+            defaultValue={currentQuestion?.answers[2].text}
+          />
         </Radio>
         <Radio
           name="radioAnswer"
           id="radioAnswer4"
-          value={3}
+          value={currentQuestion?.answers[3].id ?? 3}
           required
           defaultChecked={currentQuestion?.correctAnswerId === currentQuestion?.answers[3].id}
         >
-          <Input name="answer4" required defaultValue={currentQuestion?.answers[3].text} />
+          <Input
+            name={currentQuestion?.answers[3].id ?? 'answer4'}
+            required
+            defaultValue={currentQuestion?.answers[3].text}
+          />
         </Radio>
       </RadioGroup>
       <Input label="Тема" name="theme" defaultValue={currentQuestion?.theme ?? undefined} />

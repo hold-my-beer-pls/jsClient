@@ -28,8 +28,12 @@ export const questionSlice = createSlice({
     setModalMode: (state, { payload }: PayloadAction<ModalMode>) => {
       state.modalMode = payload;
     },
-    setCurrentQuestion: (state, { payload }: PayloadAction<QuestionResponse>) => {
-      state.currentQuestion = payload;
+    setCurrentQuestion: (state, { payload }: PayloadAction<string>) => {
+      const question = state.questions?.data.find(({ id }) => payload === id);
+
+      if (question) {
+        state.currentQuestion = question;
+      }
     },
     resetCurrentQuestion: (state) => {
       state.currentQuestion = null;

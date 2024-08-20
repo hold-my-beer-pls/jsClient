@@ -8,3 +8,4 @@ export { RadioGroup } from './RadioGroup/RadioGroup.tsx';
 export { Dropdown } from './Dropdown/Dropdown.tsx';
 export { Loader } from './Loader/Loader.tsx';
 export { Snackbar } from './Snackbar/Snackbar.tsx';
+export { CodeHighlighter } from './CodeHighlighter/CodeHighlighter.tsx';

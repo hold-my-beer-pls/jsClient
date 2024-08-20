@@ -5,7 +5,7 @@ import JSLogoIcon from '@/shared/assets/JavaScriptLogo.svg';
 import ProfileIcon from '@/shared/assets/icons/profile-circle.svg';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectUser, useLazyLogoutQuery } from '@/entities/User';
-// кросс импорт!
+// TODO кросс импорт!
 import { Authorization } from '@/widgets/Authorization';
 import { Navigation } from '@/shared/constants';
 import { Dropdown } from '@/shared/ui';
@@ -26,7 +26,7 @@ export const Header = () => {
   return (
     <>
       <div className={styles.toolbar}>
-        <div className={styles.toolbar_logo} onClick={() => navigate('/')} role="presentation">
+        <div className={styles.toolbar_logo} onClick={() => navigate(Navigation.home)} role="presentation">
           <JSLogoIcon />
         </div>
         <div className={styles.toolbar_profile}>

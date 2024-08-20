@@ -14,7 +14,7 @@ import {
 import { BreadCrumbs, Button, Modal } from '@/shared/ui';
 import { ModalMode, Navigation } from '@/shared/constants';
 import { QuestionTable } from '@/widgets/Question/QuestionTable';
-import { Form, FormData, getDataForRequest } from '@/features/Question';
+import { Form, getDataForCreate, getDataForUpdate, QuestionCreateData, QuestionUpdateData } from '@/features/Question';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { dataFromForm } from '@/shared/lib/handlers';
 
@@ -32,10 +32,10 @@ export const AdminQuestions = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fromData = dataFromForm<FormData>(e);
-    const requestData = getDataForRequest(fromData);
 
     if (modalMode === ModalMode.create) {
+      const formData = dataFromForm<QuestionCreateData>(e);
+      const requestData = getDataForCreate(formData);
       createQuestion(requestData)
         .unwrap()
         .then((res) => {
@@ -43,6 +43,8 @@ export const AdminQuestions = () => {
           handleSetIsShownModal(false);
         });
     } else if (modalMode === ModalMode.edit && currentQuestion) {
+      const formData = dataFromForm<Omit<QuestionUpdateData, 'id'>>(e);
+      const requestData = getDataForUpdate(formData);
       updateQuestion({ id: currentQuestion.id, ...requestData })
         .unwrap()
         .then((res) => {

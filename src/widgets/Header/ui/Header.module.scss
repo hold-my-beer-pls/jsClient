@@ -46,6 +46,13 @@
 
           .content_item {
             cursor: pointer;
+            text-align: start;
+            padding: 8px;
+            width: calc(100% - 16px);
+
+            &:hover {
+              background-color: rgb(0, 0, 0, 0.05);
+            }
           }
         }
       }

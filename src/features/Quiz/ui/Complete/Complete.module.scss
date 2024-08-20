@@ -1,0 +1,17 @@
+.dropdown {
+  display: block;
+
+  .content {
+    margin: 12px;
+
+    &_title {
+      margin-bottom: 12px;
+    }
+
+    &_actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+  }
+}

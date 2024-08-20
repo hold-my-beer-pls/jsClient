@@ -1,11 +1,11 @@
 import { Complexity } from '@/shared/constants';
 
-interface Answer {
+export interface Answer {
   id: string;
   text: string;
 }
 
-export interface QuestionRequest {
+export interface QuestionCreateRequest {
   question: string;
   code?: string;
   theme?: string;
@@ -15,8 +15,10 @@ export interface QuestionRequest {
   correctAnswerNumber: number;
 }
 
-export interface QuestionUpdateRequest extends QuestionRequest {
+export interface QuestionUpdateRequest extends Omit<QuestionCreateRequest, 'answers' | 'correctAnswerNumber'> {
   id: string;
+  answers: Answer[];
+  correctAnswerId: string;
 }
 
 export interface QuestionResponse {

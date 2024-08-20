@@ -1,0 +1,10 @@
+.question {
+  min-width: 320px;
+  margin-bottom: 20px;
+
+  &_label {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+}

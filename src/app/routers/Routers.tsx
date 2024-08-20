@@ -9,6 +9,7 @@ import { Navigation } from '@/shared/constants';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectUser } from '@/entities/User';
 import { AdminQuestions } from '@/pages/AdminQuestions';
+import { QuestionPreview } from '@/widgets/Question/QuestionPreview';
 
 export const Routers = () => {
   const { isAdmin } = useAppSelector(selectUser);
@@ -22,7 +23,10 @@ export const Routers = () => {
           {isAdmin && (
             <Route path={Navigation.admin}>
               <Route index element={<AdminPanel />} />
-              <Route path={Navigation.questionsList} element={<AdminQuestions />} />
+              <Route path={Navigation.questionsList}>
+                <Route index element={<AdminQuestions />} />
+                <Route path={Navigation.id} element={<QuestionPreview />} />
+              </Route>
             </Route>
           )}
         </Route>

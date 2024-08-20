@@ -1,7 +1,7 @@
 import { baseApi } from '@/shared/api';
 import { PaginationResponse } from '@/shared/interfaces';
 import {
-  QuestionRequest,
+  QuestionCreateRequest,
   QuestionResponse,
   QuestionsAllQuery,
   QuestionUpdateRequest,
@@ -26,7 +26,7 @@ export const questionApi = baseApi.injectEndpoints({
         return currentArg?.page !== previousArg?.page;
       },
     }),
-    createQuestion: build.mutation<QuestionResponse, QuestionRequest>({
+    createQuestion: build.mutation<QuestionResponse, QuestionCreateRequest>({
       query: (body) => ({
         url: '/questions',
         method: 'POST',
@@ -59,7 +59,6 @@ export const questionApi = baseApi.injectEndpoints({
 export const {
   useDeleteQuestionMutation,
   useGetAllQuestionsQuery,
-  useLazyGetAllQuestionsQuery,
   useCreateQuestionMutation,
   useUpdateVisibilityMutation,
   useUpdateQuestionMutation,

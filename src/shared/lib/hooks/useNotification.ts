@@ -6,12 +6,13 @@ import { usePrevious } from '@/shared/lib/hooks';
 import { deepEqual } from '@/shared/lib/handlers';
 
 /**
+ * TODO отказать от отображения на первом рендере
  * Хук, который отслеживает переменные, в них должны хранится уведомления
  * @param deps - переменные, когда в них появится значение, они отобразятся
  * @param type
  */
 export const useNotification = (
-  deps: Notification | Notification[] | NotificationWithType[],
+  deps: Notification | Notification[] | NotificationWithType[] | Array<Notification | NotificationWithType>,
   type: AlertTypes = 'error',
 ) => {
   const dispatch = useAppDispatch();
@@ -35,8 +36,9 @@ export const useNotification = (
         }
 
         // NotificationWithType
-        if ('notification' in item) {
+        if ('notification' in item && item.notification) {
           dispatch(addNotification({ ...item }));
+          return;
         }
 
         return item;

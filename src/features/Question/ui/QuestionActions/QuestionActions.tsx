@@ -1,15 +1,30 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './QuestionActions.module.scss';
-import { removeQuestion, useDeleteQuestionMutation } from '@/entities/Question';
-import { useAppDispatch } from '@/shared/lib/hooks';
+import {
+  removeQuestion,
+  setCurrentQuestion,
+  setModalIsShown,
+  setModalMode,
+  useDeleteQuestionMutation,
+} from '@/entities/Question';
+import { useAppDispatch, useNotification } from '@/shared/lib/hooks';
+import { ModalMode, Navigation } from '@/shared/constants';
 
 interface Props {
   id: string;
-  onEdit: (id: string) => void;
 }
 
-export const QuestionActions = ({ id, onEdit }: Props) => {
-  const [deleteQuestion] = useDeleteQuestionMutation();
+export const QuestionActions = ({ id }: Props) => {
+  const [deleteQuestion, { error }] = useDeleteQuestionMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  useNotification(error);
+
+  const handleEditQuestion = (questionId: string) => {
+    dispatch(setModalIsShown(true));
+    dispatch(setModalMode(ModalMode.edit));
+    dispatch(setCurrentQuestion(questionId));
+  };
 
   const handleDelete = () => {
     deleteQuestion(id)
@@ -19,11 +34,18 @@ export const QuestionActions = ({ id, onEdit }: Props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.item} onClick={() => onEdit(id)} role="presentation">
+      <div className={styles.item} onClick={() => handleEditQuestion(id)} role="presentation">
         Редактировать
       </div>
       <div className={styles.item} onClick={handleDelete} role="presentation">
         Удалить
+      </div>
+      <div
+        className={styles.item}
+        onClick={() => navigate(`${Navigation.admin}/${Navigation.questionsList}/${id}`)}
+        role="presentation"
+      >
+        Предпросмотр
       </div>
     </div>
   );

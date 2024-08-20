@@ -1,0 +1,33 @@
+.container {
+  .status {
+    &_step {
+      font-weight: 500;
+      font-size: 1.125rem;
+    }
+
+    &_theme {
+
+    }
+  }
+
+  .progress {
+    display: flex;
+    margin: 20px 0;
+    justify-content: space-between;
+
+    &_item {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      background-color: #838383;
+
+      &__past {
+        background-color: var(--primary-color);
+      }
+
+      &__current {
+        background-color: #569cff;
+      }
+    }
+  }
+}

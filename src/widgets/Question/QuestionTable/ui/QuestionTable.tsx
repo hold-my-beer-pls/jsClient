@@ -1,23 +1,19 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './QuestionTable.module.scss';
-import {
-  selectQuestions,
-  setCurrentQuestion,
-  setModalIsShown,
-  setModalMode,
-  useGetAllQuestionsQuery,
-} from '@/entities/Question';
+import { selectQuestions, useGetAllQuestionsQuery } from '@/entities/Question';
 import { Dropdown, Loader } from '@/shared/ui';
 import MoreIcon from '@/shared/assets/icons/more.svg';
 import { QuestionActions, VisibleCheckbox } from '@/features/Question';
-import { useAppDispatch, useAppSelector, useIntersectionObserver } from '@/shared/lib/hooks';
-import { ModalMode } from '@/shared/constants/modal.ts';
+import { useAppSelector, useIntersectionObserver, useNotification } from '@/shared/lib/hooks';
+import { Navigation } from '@/shared/constants';
 
 export const QuestionTable = () => {
   const [page, setPage] = useState(0);
   const [hasNextPage, setHasNextPage] = useState(true);
   const questions = useAppSelector(selectQuestions);
-  const { isLoading, isFetching } = useGetAllQuestionsQuery({ page, limit: 20 });
+  const { isLoading, isFetching, error } = useGetAllQuestionsQuery({ page, limit: 20 });
+  const navigate = useNavigate();
 
   const getNextPage = () => {
     if (!questions) return;
@@ -32,25 +28,13 @@ export const QuestionTable = () => {
   };
 
   const observerRef = useIntersectionObserver<HTMLDivElement>(getNextPage, [hasNextPage, !isFetching]);
-
-  const dispatch = useAppDispatch();
-
-  const handleEditQuestion = (questionId: string) => {
-    const question = questions?.data.find(({ id }) => questionId === id);
-    dispatch(setModalIsShown(true));
-    dispatch(setModalMode(ModalMode.edit));
-
-    if (question) {
-      console.log(question);
-      dispatch(setCurrentQuestion(question));
-    }
-  };
+  useNotification(error);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!questions) {
+  if (!questions?.data) {
     return <div>pusto</div>;
   }
 
@@ -60,7 +44,7 @@ export const QuestionTable = () => {
         <div
           key={question.id}
           className={styles.question}
-          onClick={() => handleEditQuestion(question.id)}
+          onClick={() => navigate(`${Navigation.admin}/${Navigation.questionsList}/${question.id}`)}
           role="presentation"
         >
           <div className={styles.question_visible}>
@@ -75,7 +59,7 @@ export const QuestionTable = () => {
           </div>
           <Dropdown className={styles.dropdown}>
             <MoreIcon />
-            <QuestionActions id={question.id} onEdit={handleEditQuestion} />
+            <QuestionActions id={question.id} />
           </Dropdown>
         </div>
       ))}
