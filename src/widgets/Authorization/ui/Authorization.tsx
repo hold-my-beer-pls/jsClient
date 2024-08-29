@@ -16,17 +16,19 @@ export const Authorization = ({ isOpen, onClose }: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.modal}>
-        {authState ? (
+        {authState === Auth.login ? (
           <>
+            <div className={styles.label}>Вход</div>
             <Login onSubmit={onClose} />
-            <div onClick={() => setAuthState(Auth.registration)} role="presentation">
-              или зарегистрироваться
+            <div className={styles.linkButton} onClick={() => setAuthState(Auth.registration)} role="presentation">
+              Зарегистрироваться
             </div>
           </>
         ) : (
           <>
+            <div className={styles.label}>Регистрация</div>
             <Registration onSubmit={onClose} />
-            <div onClick={() => setAuthState(Auth.login)} role="presentation">
+            <div className={styles.linkButton} onClick={() => setAuthState(Auth.login)} role="presentation">
               уже зарегистрированы?
             </div>
           </>

@@ -3,7 +3,7 @@ import styles from './AdminPanel.module.scss';
 import { AdminPages } from '@/entities/Admin';
 import { Navigation } from '@/shared/constants/navigation.ts';
 
-export const AdminPanel = () => {
+const AdminPanel = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,3 +22,5 @@ export const AdminPanel = () => {
     </div>
   );
 };
+
+export default AdminPanel;

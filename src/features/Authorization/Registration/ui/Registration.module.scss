@@ -1,3 +1,19 @@
-.authForm {
+.loginData {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 70px);
+  padding: 20px 20px 0 20px;
 
+  &_field {
+    margin-bottom: 20px;
+
+    input {
+      width: calc(100% - 22px);
+    }
+  }
+
+  &_action {
+    margin-top: auto;
+    width: 100%;
+  }
 }

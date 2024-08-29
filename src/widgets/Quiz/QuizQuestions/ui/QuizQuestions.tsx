@@ -3,17 +3,20 @@ import cn from 'classnames';
 import styles from './QuizQuestions.module.scss';
 import { selectQuizQuestions, useGetQuestionsQuery } from '@/entities/Quiz';
 import { Answers, Complete, Progress, Question } from '@/features/Quiz';
-import { useAppSelector, useNotification } from '@/shared/lib/hooks';
+import { useAppSelector } from '@/shared/lib/hooks';
+import { Error, Loader } from '@/shared/ui';
 
 export const QuizQuestions = () => {
   const { currentQuestion, questions } = useAppSelector(selectQuizQuestions, shallowEqual);
-  const { error } = useGetQuestionsQuery();
+  const { error, isLoading } = useGetQuestionsQuery();
   const currentQuestionNumber = questions.findIndex(({ id }) => id === currentQuestion?.id);
 
-  useNotification(error);
+  if (isLoading) {
+    return <Loader forPage />;
+  }
 
-  if (!questions.length || !currentQuestion) {
-    return <div>pusto</div>;
+  if (!questions.length || !currentQuestion || error) {
+    return <Error error={error} />;
   }
 
   return (

@@ -8,7 +8,7 @@ import { selectUser } from '@/entities/User';
 import { Button } from '@/shared/ui';
 import { Navigation } from '@/shared/constants';
 
-export const HomePage = () => {
+const HomePage = () => {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { isAuthenticated, isAdmin } = useAppSelector(selectUser);
@@ -40,3 +40,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;

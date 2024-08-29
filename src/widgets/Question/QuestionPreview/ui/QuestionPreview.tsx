@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styles from './QuestionPreview.module.scss';
-import { BreadCrumbs } from '@/shared/ui';
+import { BreadCrumbs, Error } from '@/shared/ui';
 import { Navigation } from '@/shared/constants';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectQuestions } from '@/entities/Question';
@@ -12,7 +12,7 @@ export const QuestionPreview = () => {
   const currentQuestion = questions?.data.find((question) => question.id === id);
 
   if (!id || !currentQuestion) {
-    return <div>pusto</div>;
+    return <Error error="Вопрос бесследно пропал" />;
   }
 
   return (

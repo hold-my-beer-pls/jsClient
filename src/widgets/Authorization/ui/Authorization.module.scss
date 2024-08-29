@@ -1,3 +1,20 @@
 .modal {
   height: 100%;
+
+  .label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: start;
+    margin-left: 20px;
+  }
+
+  .linkButton {
+    color: #3A95D5;
+    cursor: pointer;
+    margin: 4px;
+
+    &:hover {
+      color: #5db0ff;
+    }
+  }
 }

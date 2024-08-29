@@ -1,6 +1,6 @@
 import { shallowEqual } from 'react-redux';
 import styles from './QuizAnswers.module.scss';
-import { Button } from '@/shared/ui';
+import { Button, Error } from '@/shared/ui';
 import { Progress, Question, RightAnswer } from '@/features/Quiz';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { quizStage, selectAnswers, setNextAnswer, setStage } from '@/entities/Quiz';
@@ -15,7 +15,7 @@ export const QuizAnswers = () => {
   };
 
   if (!rightAnswers.length || !currentAnswer) {
-    return <div>pusto</div>;
+    return <Error error="Потеряли ответы" />;
   }
 
   return (

@@ -1,1 +1,1 @@
-export { AdminQuestions } from './ui/AdminQuestions.tsx';
+export { default } from './ui/AdminQuestions.tsx';

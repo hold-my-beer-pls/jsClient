@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './QuestionTable.module.scss';
 import { selectQuestions, useGetAllQuestionsQuery } from '@/entities/Question';
-import { Dropdown, Loader } from '@/shared/ui';
+import { Dropdown, Error, LoaderJs } from '@/shared/ui';
 import MoreIcon from '@/shared/assets/icons/more.svg';
 import { QuestionActions, VisibleCheckbox } from '@/features/Question';
 import { useAppSelector, useIntersectionObserver, useNotification } from '@/shared/lib/hooks';
@@ -31,11 +31,11 @@ export const QuestionTable = () => {
   useNotification(error);
 
   if (isLoading) {
-    return <Loader />;
+    return <LoaderJs forPage />;
   }
 
   if (!questions?.data) {
-    return <div>pusto</div>;
+    return <Error error="Вопросы утеряны" />;
   }
 
   return (
@@ -63,7 +63,7 @@ export const QuestionTable = () => {
           </Dropdown>
         </div>
       ))}
-      {isFetching && <Loader />}
+      {isFetching && <LoaderJs />}
       <div ref={observerRef} className={styles.observer} />
     </>
   );

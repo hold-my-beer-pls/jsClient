@@ -1,1 +1,1 @@
-export { AdminPanel } from './ui/AdminPanel.tsx';
+export { default } from './ui/AdminPanel.tsx';

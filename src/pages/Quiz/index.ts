@@ -1,1 +1,1 @@
-export { Quiz } from './ui/Quiz.tsx';
+export { default } from './ui/Quiz.tsx';

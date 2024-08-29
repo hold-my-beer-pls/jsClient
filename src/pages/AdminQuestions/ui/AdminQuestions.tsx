@@ -18,7 +18,7 @@ import { Form, getDataForCreate, getDataForUpdate, QuestionCreateData, QuestionU
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { dataFromForm } from '@/shared/lib/handlers';
 
-export const AdminQuestions = () => {
+const AdminQuestions = () => {
   const [createQuestion] = useCreateQuestionMutation();
   const [updateQuestion] = useUpdateQuestionMutation();
   const { modalIsShown, currentQuestion, modalMode } = useAppSelector(selectModal, shallowEqual);
@@ -75,3 +75,5 @@ export const AdminQuestions = () => {
     </div>
   );
 };
+
+export default AdminQuestions;

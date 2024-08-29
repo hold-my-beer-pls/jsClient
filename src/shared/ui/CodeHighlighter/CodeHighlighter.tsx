@@ -12,12 +12,7 @@ interface Props {
 export const CodeHighlighter = ({ children }: Props) => {
   return (
     <div className={styles.container}>
-      <SyntaxHighlighter
-        language="javascript"
-        style={docco}
-        customStyle={{ background: '#ffffff', borderRadius: 6 }}
-        showLineNumbers
-      >
+      <SyntaxHighlighter language="javascript" style={docco} customStyle={{ background: '#ffffff', borderRadius: 6 }}>
         {children}
       </SyntaxHighlighter>
     </div>

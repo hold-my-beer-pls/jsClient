@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
+import { shallowEqual } from 'react-redux';
 import { Snackbar } from '@/shared/ui';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { removeNotification, selectNotification } from '@/shared/model';
 import styles from './NotificationSystem.module.scss';
 
 export const NotificationSystem = () => {
-  const notifications = useAppSelector(selectNotification);
+  const notifications = useAppSelector(selectNotification, shallowEqual);
   const dispatch = useAppDispatch();
 
   const handleClose = useCallback(

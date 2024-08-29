@@ -5,7 +5,7 @@ import { QuizResult } from '@/widgets/Quiz/QuizResult';
 import { QuizAnswers } from '@/widgets/Quiz/QuizAnswers';
 import { QuizQuestions } from '@/widgets/Quiz/QuizQuestions';
 
-export const Quiz = () => {
+const Quiz = () => {
   const dispatch = useAppDispatch();
   const stage = useAppSelector(selectStage);
 
@@ -24,3 +24,5 @@ export const Quiz = () => {
 
   return <QuizQuestions />;
 };
+
+export default Quiz;

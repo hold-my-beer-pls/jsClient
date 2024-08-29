@@ -1,4 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { Error } from '@/shared/ui';
+import styles from './ErrorBoundary.module.scss';
 
 interface Props {
   children?: ReactNode;
@@ -30,6 +32,6 @@ export class ErrorBoundary extends Component<Props, State> {
     const { hasError } = this.state;
     const { children } = this.props;
 
-    return hasError ? <div>error</div> : children;
+    return hasError ? <Error className={styles.errorContainer} /> : children;
   }
 }

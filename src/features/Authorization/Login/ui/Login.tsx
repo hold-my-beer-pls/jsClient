@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import styles from './Login.module.scss';
 import { Authorization, useLoginMutation } from '@/entities/User';
 import { dataFromForm } from '@/shared/lib/handlers/dataFromForm.ts';
-import { Button } from '@/shared/ui';
+import { Button, Input } from '@/shared/ui';
 import { useNotification } from '@/shared/lib/hooks';
 
 interface Props {
@@ -24,13 +24,13 @@ export const Login = ({ onSubmit }: Props) => {
 
   return (
     <form className={styles.loginData} onSubmit={handleSubmit}>
-      <input className={styles.answerText} placeholder="email" name="email" type="email" required />
-      <input className={styles.answerText} placeholder="password" name="password" type="password" required />
+      <Input className={styles.loginData_field} placeholder="email" name="email" type="email" required />
+      <Input className={styles.loginData_field} placeholder="password" name="password" type="password" required />
       {isError && <div>error</div>}
       {isLoading && <div>loading</div>}
-      <div className={styles.loginData_login}>
-        <Button type="submit">Войти</Button>
-      </div>
+      <Button className={styles.loginData_action} type="submit">
+        Войти
+      </Button>
     </form>
   );
 };

@@ -4,7 +4,7 @@ import { shallowEqual } from 'react-redux';
 import styles from './Answers.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { selectAnswers, setAnswer, setNextQuestion, useLazyGetAnswersQuery } from '@/entities/Quiz';
-import { Button } from '@/shared/ui';
+import { Button, LoaderJs } from '@/shared/ui';
 
 interface Props {
   answers: { id: string; text: string }[];
@@ -29,7 +29,7 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
   };
 
   if (isLoading) {
-    return <div>Проверяем ответы</div>;
+    return <LoaderJs forPage />;
   }
 
   return (

@@ -8,4 +8,22 @@
     margin-bottom: 12px;
     font-size: 1.5rem;
   }
+
+  input {
+    background-color: #fff;
+    color: var(--text-primary-color);
+    border: none;
+    border: 2px solid #f7df1c;
+    border-radius: 7px;
+    font-size: 1rem;
+    padding: 15px 10px;
+    margin-bottom: 5px;
+    font-family: "Roboto", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #ffbb19;
+  }
 }
