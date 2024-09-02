@@ -1,5 +1,5 @@
 import { baseApi } from '@/shared/api';
-import { Authorization, LoginResponse, Profile } from '../model/interfaces.ts';
+import { Authorization, AuthorizationWithTg, LoginResponse, Profile } from '../model/interfaces.ts';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -11,6 +11,19 @@ export const userApi = baseApi.injectEndpoints({
     login: build.mutation<LoginResponse, Authorization>({
       query: (loginData) => ({
         url: '/login',
+        method: 'POST',
+        body: loginData,
+      }),
+      transformResponse: (response: LoginResponse) => {
+        const { accessToken, refreshToken } = response;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        return response;
+      },
+    }),
+    loginWithTg: build.mutation<LoginResponse, AuthorizationWithTg>({
+      query: (loginData) => ({
+        url: '/loginWithTg',
         method: 'POST',
         body: loginData,
       }),
@@ -36,4 +49,10 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetMyProfileQuery, useRegistrationMutation, useLoginMutation, useLazyLogoutQuery } = userApi;
+export const {
+  useGetMyProfileQuery,
+  useLoginWithTgMutation,
+  useRegistrationMutation,
+  useLoginMutation,
+  useLazyLogoutQuery,
+} = userApi;

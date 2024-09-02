@@ -1,6 +1,7 @@
 import { JSX, StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { SDKProvider } from '@telegram-apps/sdk-react';
 import { ErrorBoundary } from '@/pages/ErrorBoundary';
 import { setupStore } from '@/app/store/store.ts';
 
@@ -15,7 +16,9 @@ export const Providers = ({ children }: Props) => {
     <StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <ErrorBoundary>{children}</ErrorBoundary>
+          <SDKProvider debug={import.meta.env.DEV}>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </SDKProvider>
         </BrowserRouter>
       </Provider>
     </StrictMode>

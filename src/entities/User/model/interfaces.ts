@@ -20,6 +20,10 @@ export interface Authorization {
   password: string;
 }
 
+export interface AuthorizationWithTg {
+  initData: string;
+}
+
 export interface LoginResponse extends Tokens {
   data: Profile;
 }

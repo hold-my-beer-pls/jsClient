@@ -50,6 +50,12 @@ export const userSlice = createSlice({
         localStorage.setItem('refreshToken', refreshToken);
         setUser(state, data);
       })
+      .addMatcher(userApi.endpoints.loginWithTg.matchFulfilled, (state, { payload }) => {
+        const { accessToken, refreshToken, data } = payload;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        setUser(state, data);
+      })
       .addMatcher(userApi.endpoints.registration.matchFulfilled, (state, { payload }) => {
         const { accessToken, refreshToken, data } = payload;
         localStorage.setItem('accessToken', accessToken);

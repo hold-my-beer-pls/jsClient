@@ -1,13 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useGetMyProfileQuery } from '@/entities/User';
+import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { useEffect } from 'react';
+import { useGetMyProfileQuery, useLoginWithTgMutation } from '@/entities/User';
 import { NotificationSystem } from '@/widgets/NotificationSystem';
 import { LoaderJs } from '@/shared/ui';
 
 export const Layout = () => {
-  const { isLoading } = useGetMyProfileQuery(localStorage.getItem('accessToken') ? undefined : skipToken);
+  const { initDataRaw } = retrieveLaunchParams();
+  const canGetProfile = !!localStorage.getItem('accessToken') && !initDataRaw;
+  const [loginWithTg, { isLoading: tgIsLoading }] = useLoginWithTgMutation();
+  const { isLoading: profileIsLoading } = useGetMyProfileQuery(canGetProfile ? undefined : skipToken);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (initDataRaw) {
+      loginWithTg({ initData: initDataRaw });
+    }
+  }, []);
+
+  if (tgIsLoading || profileIsLoading) {
     return <LoaderJs forPage />;
   }
 
