@@ -28,6 +28,7 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
         questionId: item[0],
         selectedAnswerId: item[1],
       }));
+      answersList.push({ questionId, selectedAnswerId: selectedId });
       completeQuiz({ answers: answersList });
     }
   };
