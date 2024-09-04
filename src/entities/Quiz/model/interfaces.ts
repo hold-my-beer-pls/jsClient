@@ -20,3 +20,7 @@ export interface AnswersResponse extends QuestionResponse {
   correctAnswerId: string;
   explanation: string;
 }
+
+export interface AnswerRequest {
+  answers: { questionId: string; selectedAnswerId: string | null }[];
+}

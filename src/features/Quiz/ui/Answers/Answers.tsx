@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import styles from './Answers.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { selectAnswers, setAnswer, setNextQuestion, useLazyGetAnswersQuery } from '@/entities/Quiz';
+import { selectAnswers, setAnswer, setNextQuestion, useCompleteQuizMutation } from '@/entities/Quiz';
 import { Button, LoaderJs } from '@/shared/ui';
 
 interface Props {
@@ -16,7 +16,7 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const { isLastQuestion, userAnswers } = useAppSelector(selectAnswers, shallowEqual);
-  const [getAnswers, { isLoading }] = useLazyGetAnswersQuery();
+  const [completeQuiz, { isLoading }] = useCompleteQuizMutation();
 
   const handleNextQuestion = () => {
     dispatch(setAnswer({ questionId, answerId: selectedId }));
@@ -24,7 +24,11 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
     setSelectedId(null);
 
     if (isLastQuestion) {
-      getAnswers([...Object.keys(userAnswers), questionId]);
+      const answersList = Object.entries(userAnswers).map((item) => ({
+        questionId: item[0],
+        selectedAnswerId: item[1],
+      }));
+      completeQuiz({ answers: answersList });
     }
   };
 

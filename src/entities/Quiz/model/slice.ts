@@ -78,7 +78,7 @@ export const quizSlice = createSlice({
         state.currentQuestion = payload[0];
         state.questions = payload;
       })
-      .addMatcher(quizApi.endpoints.getAnswers.matchFulfilled, (state, { payload }) => {
+      .addMatcher(quizApi.endpoints.completeQuiz.matchFulfilled, (state, { payload }) => {
         state.rightAnswers = payload;
         state.currentAnswer = payload[0];
         state.stage = quizStage.result;

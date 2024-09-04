@@ -1,4 +1,4 @@
-import { JSX, StrictMode } from 'react';
+import { JSX, StrictMode, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { SDKProvider } from '@telegram-apps/sdk-react';
@@ -11,6 +11,12 @@ interface Props {
 
 export const Providers = ({ children }: Props) => {
   const store = setupStore();
+
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      // mockInit();
+    }
+  }, []);
 
   return (
     <StrictMode>
