@@ -17,7 +17,7 @@ export const Header = () => {
   const { name, email, isAuthenticated } = useAppSelector(selectUser);
   const [logout] = useLazyLogoutQuery();
 
-  const profileWord = name ? name[0] : email[0];
+  const profileWord = name ? name[0] : email?.[0] || '?';
 
   const handleLogout = async () => {
     await logout();

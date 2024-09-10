@@ -3,3 +3,4 @@ export * from './useIntersectionObserver.ts';
 export * from './useNotification.ts';
 export * from './usePrevious.ts';
 export * from './useLaunchParams.ts';
+export * from './useIsMobile.ts';

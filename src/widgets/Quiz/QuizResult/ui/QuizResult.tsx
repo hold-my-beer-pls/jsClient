@@ -10,6 +10,11 @@ export const QuizResult = () => {
   const navigate = useNavigate();
   const { rightAnswers, quizResult } = useAppSelector(selectAnswers, shallowEqual);
 
+  const handleShare = () => {
+    const params = rightAnswers.map((item) => item.id).join(',');
+    navigator.clipboard.writeText(`https://t.me/flirtexBot/app?startapp=get-${params}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.label}>{`Ваш результат ${quizResult} из ${rightAnswers.length}`}</div>
@@ -17,7 +22,9 @@ export const QuizResult = () => {
         <Button className={styles.actionsBlock_action} onClick={() => dispatch(setStage(quizStage.answers))}>
           Ответы
         </Button>
-        <Button className={styles.actionsBlock_action}>Поделиться</Button>
+        <Button className={styles.actionsBlock_action} onClick={handleShare}>
+          Поделиться
+        </Button>
         <Button className={styles.actionsBlock_action} onClick={() => navigate('/')} theme="secondary">
           Выйти
         </Button>

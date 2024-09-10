@@ -13,6 +13,7 @@ const Profile = lazy(() => import('@/pages/Profile'));
 const Quiz = lazy(() => import('@/pages/Quiz'));
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const AdminQuestions = lazy(() => import('@/pages/AdminQuestions'));
+const AdminUsers = lazy(() => import('@/pages/AdminUsers'));
 
 export const Routers = () => {
   const { isAdmin } = useAppSelector(selectUser);
@@ -31,6 +32,7 @@ export const Routers = () => {
                   <Route index element={<AdminQuestions />} />
                   <Route path={Navigation.id} element={<QuestionPreview />} />
                 </Route>
+                <Route path={Navigation.usersList} element={<AdminUsers />} />
               </Route>
             )}
           </Route>

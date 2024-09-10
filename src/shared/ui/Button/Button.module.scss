@@ -13,9 +13,11 @@ button {
 .primary {
   background-color: var(--primary-color);
 
-  &:hover {
-    background-color: var(--secondary-color);
-    transition: background-color .15s linear;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--secondary-color);
+      transition: background-color .15s linear;
+    }
   }
 }
 
@@ -23,8 +25,10 @@ button {
   background-color: inherit;
   border-color: var(--primary-color);
 
-  &:hover {
-    background-color: #faf5d9;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #faf5d9;
+    }
   }
 }
 

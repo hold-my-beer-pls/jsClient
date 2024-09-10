@@ -7,10 +7,12 @@ import { useAppSelector } from '@/shared/lib/hooks';
 import { selectUser } from '@/entities/User';
 import { Button } from '@/shared/ui';
 import { Navigation } from '@/shared/constants';
+import { Settings } from '@/widgets/Quiz/Settings';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [authModalIsOpen, setAuthModalModalIsOpen] = useState(false);
+  const [settingModalIsOpen, setSettingModalModalIsOpen] = useState(false);
   const { isAuthenticated, isAdmin } = useAppSelector(selectUser);
 
   return (
@@ -23,8 +25,11 @@ const HomePage = () => {
         <Button className={styles.buttonGroup_button} onClick={() => navigate(Navigation.quiz)}>
           Пройти тест
         </Button>
+        <Button className={styles.buttonGroup_button} onClick={() => setSettingModalModalIsOpen(true)}>
+          Настройки
+        </Button>
         {!isAuthenticated && (
-          <Button className={styles.buttonGroup_button} theme="secondary" onClick={() => setModalIsOpen(true)}>
+          <Button className={styles.buttonGroup_button} theme="secondary" onClick={() => setAuthModalModalIsOpen(true)}>
             Авторизоваться
           </Button>
         )}
@@ -34,9 +39,8 @@ const HomePage = () => {
           </Button>
         )}
       </div>
-      <div className={styles.block}>Настройки</div>
-      <div className={styles.block}>Статистика</div>
-      <Authorization isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} />
+      <Settings isOpen={settingModalIsOpen} onClose={() => setSettingModalModalIsOpen(false)} />
+      <Authorization isOpen={authModalIsOpen} onClose={() => setAuthModalModalIsOpen(false)} />
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import { baseApi } from '@/shared/api';
-import { AnswerRequest, AnswersResponse, QuestionResponse } from '../model/interfaces.ts';
+import { AnswerRequest, AnswersResponse, QuestionRequest, QuestionResponse } from '../model/interfaces.ts';
 
 export const quizApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getQuestions: build.query<QuestionResponse[], void>({
-      query: () => ({
+    getQuestions: build.query<QuestionResponse[], QuestionRequest>({
+      query: (params) => ({
         url: '/questions',
-        params: { limit: 4 },
+        params,
       }),
       keepUnusedDataFor: 0,
     }),

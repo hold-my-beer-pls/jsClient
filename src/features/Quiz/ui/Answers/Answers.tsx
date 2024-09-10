@@ -38,17 +38,19 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
   }
 
   return (
-    <div className={styles.answers}>
-      {answers.map(({ id, text }) => (
-        <div
-          key={id}
-          className={cn(styles.answers_item, { [styles.answers_item__selected]: selectedId === id })}
-          onClick={() => setSelectedId(id)}
-          role="presentation"
-        >
-          {text}
-        </div>
-      ))}
+    <>
+      <div className={styles.answers}>
+        {answers.map(({ id, text }) => (
+          <div
+            key={id}
+            className={cn(styles.answers_item, { [styles.answers_item__selected]: selectedId === id })}
+            onClick={() => setSelectedId(id)}
+            role="presentation"
+          >
+            {text}
+          </div>
+        ))}
+      </div>
       {!demo && (
         <div className={styles.action}>
           <Button className={styles.action_next} onClick={handleNextQuestion} disabled={!selectedId}>
@@ -59,6 +61,6 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
           </Button>
         </div>
       )}
-    </div>
+    </>
   );
 };

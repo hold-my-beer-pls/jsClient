@@ -6,3 +6,5 @@ export const selectUser = (state: RootState) => ({
   isAdmin: state.user.roles.includes(Roles.admin),
   isAuthenticated: state.user.isAuthenticated,
 });
+
+export const selectAllUsers = (state: RootState) => state.user.userList;

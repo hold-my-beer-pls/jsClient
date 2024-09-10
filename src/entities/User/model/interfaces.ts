@@ -4,9 +4,10 @@ export const enum Roles {
 }
 
 export interface Profile {
-  email: string;
   id: string;
+  email: string | null;
   name: string | null;
+  tgId: number | null;
   roles: Roles[];
 }
 
@@ -26,4 +27,14 @@ export interface AuthorizationWithTg {
 
 export interface LoginResponse extends Tokens {
   data: Profile;
+}
+
+export interface PaginationRequest {
+  page: number;
+  limit: number;
+}
+
+export interface RoleRequest {
+  role: Roles;
+  userId: string;
 }

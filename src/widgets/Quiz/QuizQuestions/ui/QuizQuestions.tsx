@@ -3,13 +3,14 @@ import cn from 'classnames';
 import styles from './QuizQuestions.module.scss';
 import { selectQuizQuestions, useGetQuestionsQuery } from '@/entities/Quiz';
 import { Answers, Complete, Progress, Question } from '@/features/Quiz';
-import { useAppSelector } from '@/shared/lib/hooks';
+import { useAppSelector, useIsMobile } from '@/shared/lib/hooks';
 import { Error, Loader } from '@/shared/ui';
 
 export const QuizQuestions = () => {
-  const { currentQuestion, questions } = useAppSelector(selectQuizQuestions, shallowEqual);
-  const { error, isLoading } = useGetQuestionsQuery();
+  const { currentQuestion, questions, options } = useAppSelector(selectQuizQuestions, shallowEqual);
+  const { error, isLoading } = useGetQuestionsQuery(options);
   const currentQuestionNumber = questions.findIndex(({ id }) => id === currentQuestion?.id);
+  const isMobile = useIsMobile();
 
   if (isLoading) {
     return <Loader forPage />;
@@ -24,7 +25,7 @@ export const QuizQuestions = () => {
       <div className={styles.header}>
         <Complete />
         <Progress numberQuestions={questions.length} currentPosition={currentQuestionNumber + 1} />
-        <div>?</div>
+        {!isMobile && <div />}
       </div>
       <Question question={currentQuestion.question} code={currentQuestion.code} />
       <Answers answers={currentQuestion.answers} questionId={currentQuestion.id} />

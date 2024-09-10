@@ -1,5 +1,13 @@
 import { baseApi } from '@/shared/api';
-import { Authorization, AuthorizationWithTg, LoginResponse, Profile } from '../model/interfaces.ts';
+import {
+  Authorization,
+  AuthorizationWithTg,
+  LoginResponse,
+  PaginationRequest,
+  Profile,
+  RoleRequest,
+} from '../model/interfaces.ts';
+import { PaginationResponse } from '@/shared/interfaces';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -46,6 +54,19 @@ export const userApi = baseApi.injectEndpoints({
         url: '/logout',
       }),
     }),
+    getAll: build.query<PaginationResponse<Profile>, PaginationRequest>({
+      query: (params) => ({
+        url: '/users',
+        params,
+      }),
+    }),
+    setRole: build.mutation<void, RoleRequest>({
+      query: ({ userId, role }) => ({
+        url: `/users/${userId}`,
+        method: 'PATCH',
+        body: { role },
+      }),
+    }),
   }),
 });
 
@@ -55,4 +76,6 @@ export const {
   useRegistrationMutation,
   useLoginMutation,
   useLazyLogoutQuery,
+  useGetAllQuery,
+  useSetRoleMutation,
 } = userApi;

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: clamp(300px, 80%, 450px);
 
   .label {
     font-size: 1.125rem;

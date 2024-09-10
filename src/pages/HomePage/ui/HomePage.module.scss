@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  flex-direction: column;
   margin: 20px 30px;
 
   .block {
@@ -7,7 +9,7 @@
 
   .preview {
     &_label {
-      font-size: 3rem;
+      font-size: clamp(2rem, 6vw, 3rem);
       font-weight: 500;
       margin-bottom: 20px;
     }
@@ -20,12 +22,21 @@
 
 
   .buttonGroup {
-    &_button {
-      width: 170px;
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 
-      &:not(:last-child) {
-        margin-right: 20px;
-      }
+    &_button {
+      margin-bottom: 12px;
+      flex: 1 1 170px;
     }
+  }
+
+  .questionLabel {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 20px;
   }
 }

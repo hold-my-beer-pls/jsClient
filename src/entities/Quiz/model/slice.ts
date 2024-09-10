@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AnswersResponse, QuestionResponse, QuizAnswer } from './interfaces.ts';
+import { AnswersResponse, QuestionRequest, QuestionResponse, QuizAnswer } from './interfaces.ts';
 import { quizStage } from './constants.ts';
 import { quizApi } from '@/entities/Quiz';
 
 interface QuizState {
-  userAnswers: { [key: string]: string | null };
+  userAnswers: Record<string, string | null>;
   rightAnswers: AnswersResponse[];
   questions: QuestionResponse[];
   currentQuestion: QuestionResponse | null;
@@ -12,6 +12,7 @@ interface QuizState {
   stage: quizStage;
   quizResult: number;
   isLastQuestion: boolean;
+  setting: QuestionRequest;
 }
 
 const initialState: QuizState = {
@@ -23,6 +24,7 @@ const initialState: QuizState = {
   currentQuestion: null,
   currentAnswer: null,
   isLastQuestion: false,
+  setting: {},
 };
 
 export const quizSlice = createSlice({
@@ -55,11 +57,17 @@ export const quizSlice = createSlice({
 
       if (currentAnswerNumber === -1) {
         state.currentAnswer = null;
-      } else if (currentAnswerNumber === state.rightAnswers.length - 1) {
-        state.currentAnswer = null;
-      } else if (currentAnswerNumber !== -1) {
+      } else {
         state.currentAnswer = state.rightAnswers[currentAnswerNumber + payload];
       }
+    },
+    addSettingOption(state, { payload }: PayloadAction<QuestionRequest>) {
+      state.setting = { ...state.setting, ...payload };
+    },
+    removeSettingOption(state, { payload }: PayloadAction<keyof QuestionRequest>) {
+      const options = { ...state.setting };
+      delete options[payload];
+      state.setting = { ...options };
     },
     reset: (state) => {
       state.userAnswers = {};
@@ -70,6 +78,7 @@ export const quizSlice = createSlice({
       state.currentQuestion = null;
       state.currentAnswer = null;
       state.isLastQuestion = false;
+      state.setting = {};
     },
   },
   extraReducers: (builder) => {
@@ -94,4 +103,5 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { setAnswer, setNextQuestion, setNextAnswer, setStage, reset } = quizSlice.actions;
+export const { removeSettingOption, setAnswer, setNextQuestion, setNextAnswer, setStage, reset, addSettingOption } =
+  quizSlice.actions;
