@@ -20,6 +20,12 @@
       }
     }
 
+    @media (hover: none) {
+      &:active {
+        border-color: #ffedbe;
+      }
+    }
+
     &__selected {
       border-color: #f7df1c;
     }

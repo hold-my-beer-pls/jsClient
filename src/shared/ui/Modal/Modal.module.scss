@@ -16,9 +16,33 @@
   }
 }
 
+@keyframes show-mobile-modal {
+  from {
+    width: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+  }
+}
+
+@keyframes hide-mobile-modal {
+  from {
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+  }
+  to {
+    width: 0;
+    visibility: hidden;
+  }
+}
+
 .modalBackground {
+  background: rgba(0, 0, 0);
   display: block;
-  background: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -30,35 +54,51 @@
   &.close {
     animation: hide-modal 200ms ease-in-out forwards;
   }
+}
 
-  .modal {
-    overflow: hidden;
+.modalBackground_mobile {
+  animation: show-mobile-modal 250ms ease-in-out forwards;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 0;
+  max-width: var(--tg-max-width);
+  min-width: var(--tg-min-width);
+  position: fixed;
+  z-index: 99;
+  overflow: hidden;
+
+  &.close {
+    animation: hide-mobile-modal 250ms ease-in-out forwards;
+  }
+}
+
+.modal {
+  overflow: hidden;
+  position: absolute;
+  width: calc(100vw - 40px);
+  height: calc(100vh - 40px);
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  cursor: default;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .closeButton {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: flex-end;
     position: absolute;
-    width: 350px;
-    height: 495px;
-    top: calc(50% - 250px);
-    left: calc(50% - 195px);
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    cursor: default;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
 
-    &_closeButton {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      cursor: pointer;
-      align-self: flex-end;
+    &:hover {
+      background-color: #fafaf4;
+    }
 
-      &:hover {
-        background-color: #fafaf4;
-      }
-
-      svg {
-        stroke: #000000;
-      }
+    svg {
+      stroke: #000000;
     }
   }
 }

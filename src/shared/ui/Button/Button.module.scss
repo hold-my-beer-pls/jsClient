@@ -19,14 +19,26 @@ button {
       transition: background-color .15s linear;
     }
   }
+  @media (hover: none) {
+    &:active {
+      background-color: var(--secondary-color);
+      transition: background-color .15s linear;
+    }
+  }
 }
 
 .secondary {
   background-color: inherit;
   border-color: var(--primary-color);
 
-  @media (hover: hover) and (pointer: fine) {
+  @media (hover: hover) {
     &:hover {
+      background-color: #faf5d9;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
       background-color: #faf5d9;
     }
   }

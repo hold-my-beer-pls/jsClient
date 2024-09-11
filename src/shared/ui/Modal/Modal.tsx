@@ -1,8 +1,9 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { memo, ReactNode, useEffect, useState } from 'react';
 import cn from 'classnames';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
 import Close from '@/shared/assets/icons/close.svg';
+import { useIsMobile } from '@/shared/lib/hooks';
 
 interface Props {
   isOpen: boolean;
@@ -12,10 +13,12 @@ interface Props {
   className?: string;
 }
 
-export const Modal = ({ isOpen, onClose, onAfterClose, children, className }: Props) => {
+export const Modal = memo(({ isOpen, onClose, onAfterClose, children, className }: Props) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [canCloseSidebar, setCanCloseSidebar] = useState(false);
-  const portal = document.getElementById('root') ?? document.body;
+  const portal = document.body;
+
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (isOpen) {
@@ -49,13 +52,17 @@ export const Modal = ({ isOpen, onClose, onAfterClose, children, className }: Pr
 
   return ReactDOM.createPortal(
     <div
-      className={cn(styles.modalBackground, { [styles.close]: canCloseSidebar }, className)}
+      className={cn(
+        isMobile ? styles.modalBackground_mobile : styles.modalBackground,
+        { [styles.close]: canCloseSidebar },
+        className,
+      )}
       onAnimationEnd={handleAnimationEnd}
       onClick={onClose}
       role="presentation"
     >
       <div className={styles.modal} onClick={(e) => e.stopPropagation()} role="presentation">
-        <div className={styles.modal_closeButton} onClick={onClose} role="presentation">
+        <div className={styles.closeButton} onClick={onClose} role="presentation">
           <Close />
         </div>
         {children}
@@ -63,4 +70,4 @@ export const Modal = ({ isOpen, onClose, onAfterClose, children, className }: Pr
     </div>,
     portal,
   );
-};
+});

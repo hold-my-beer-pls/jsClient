@@ -21,7 +21,7 @@ export const RightAnswer = ({ answerEntity, userAnswerId }: Props) => {
           <div className={cn(styles.label, styles.label__right)}>Вы ответили правильно</div>
         ) : (
           <>
-            <div className={cn(styles.label, styles.label__wrong)}>Вы ответили не правильно</div>
+            <div className={cn(styles.label, styles.label__wrong)}>Вы ответили неправильно</div>
             <div className={styles.label}>Правильный ответ:</div>
             <div>{answerEntity.answers.find(({ id }) => id === answerEntity.correctAnswerId)?.text}</div>
           </>
