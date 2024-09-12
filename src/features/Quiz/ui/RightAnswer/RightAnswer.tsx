@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import styles from './RightAnswer.module.scss';
 import { AnswersResponse } from '@/entities/Quiz/model/interfaces.ts';
+import { QuestionResponse } from '@/entities/Question';
 
 interface Props {
-  answerEntity: AnswersResponse;
+  answerEntity: AnswersResponse | QuestionResponse;
   userAnswerId: string | null;
 }
 

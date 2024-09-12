@@ -1,5 +1,6 @@
 import { shallowEqual } from 'react-redux';
 import cn from 'classnames';
+import { skipToken } from '@reduxjs/toolkit/query';
 import styles from './QuizQuestions.module.scss';
 import { selectQuizQuestions, useGetQuestionsQuery } from '@/entities/Quiz';
 import { Answers, Complete, Progress, Question } from '@/features/Quiz';
@@ -8,7 +9,7 @@ import { Error, Loader } from '@/shared/ui';
 
 export const QuizQuestions = () => {
   const { currentQuestion, questions, options } = useAppSelector(selectQuizQuestions, shallowEqual);
-  const { error, isLoading } = useGetQuestionsQuery(options);
+  const { error, isLoading } = useGetQuestionsQuery(questions.length ? skipToken : options);
   const currentQuestionNumber = questions.findIndex(({ id }) => id === currentQuestion?.id);
   const isMobile = useIsMobile();
 
@@ -17,7 +18,7 @@ export const QuizQuestions = () => {
   }
 
   if (!questions.length || !currentQuestion || error) {
-    return <Error error={error} />;
+    return <Error forPage error={error} />;
   }
 
   return (

@@ -1,26 +1,31 @@
 import { Outlet } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect } from 'react';
+import WebApp from '@twa-dev/sdk';
 import { useGetMyProfileQuery, useLoginWithTgMutation } from '@/entities/User';
 import { NotificationSystem } from '@/widgets/NotificationSystem';
 import { LoaderJs } from '@/shared/ui';
-import { useLaunchParams } from '@/shared/lib/hooks';
 
 export const Layout = () => {
-  const launchParams = useLaunchParams();
-  const canGetProfile = !!localStorage.getItem('accessToken') && !launchParams;
+  const canGetProfile = !!localStorage.getItem('accessToken') && WebApp.platform === 'unknown';
   const [loginWithTg, { isLoading: tgIsLoading }] = useLoginWithTgMutation();
   const { isLoading: profileIsLoading } = useGetMyProfileQuery(canGetProfile ? undefined : skipToken);
 
   useEffect(() => {
-    if (!launchParams) {
-      return;
-    }
+    if (WebApp.platform !== 'unknown') {
+      WebApp.ready();
+      WebApp.enableClosingConfirmation();
+      WebApp.disableVerticalSwipes();
+      WebApp.MainButton.hideProgress();
+      WebApp.setBackgroundColor('#f2f2f2');
 
-    const { initDataRaw: initData } = launchParams;
+      if (!WebApp.isExpanded) {
+        WebApp.expand();
+      }
 
-    if (initData) {
-      loginWithTg({ initData });
+      if (WebApp.initData) {
+        loginWithTg({ initData: WebApp.initData });
+      }
     }
   }, []);
 

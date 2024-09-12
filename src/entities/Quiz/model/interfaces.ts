@@ -29,6 +29,7 @@ export interface QuizAnswer {
 export interface AnswersResponse extends QuestionResponse {
   correctAnswerId: string;
   explanation: string;
+  correct: boolean;
 }
 
 export interface AnswerRequest {

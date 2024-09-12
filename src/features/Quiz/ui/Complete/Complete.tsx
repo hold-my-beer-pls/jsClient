@@ -10,7 +10,7 @@ export const Complete = () => {
   const isMobile = useIsMobile();
 
   return (
-    <Dropdown className={cn(styles.dropdown, { [styles.mobileDropdown]: isMobile })}>
+    <Dropdown placement="bottom-start" className={cn(styles.dropdown, { [styles.mobileDropdown]: isMobile })}>
       {isMobile ? (
         <div className={styles.mobileClose}>
           <CloseCircleIcon />

@@ -57,7 +57,7 @@
 }
 
 .modalBackground_mobile {
-  animation: show-mobile-modal 250ms ease-in-out forwards;
+  animation: show-mobile-modal 100ms ease-in-out forwards;
   left: 0;
   bottom: 0;
   height: 100%;
@@ -69,7 +69,7 @@
   overflow: hidden;
 
   &.close {
-    animation: hide-mobile-modal 250ms ease-in-out forwards;
+    animation: hide-mobile-modal 100ms ease-in-out forwards;
   }
 }
 
