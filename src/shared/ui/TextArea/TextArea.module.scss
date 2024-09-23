@@ -6,11 +6,11 @@
   &_label {
     font-weight: 500;
     margin-bottom: 12px;
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
 
     &__required {
       margin-left: 4px;
-      color: #FF0000;
+      color: var(--error-color);
     }
   }
 

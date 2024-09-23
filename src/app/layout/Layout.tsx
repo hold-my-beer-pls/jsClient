@@ -11,6 +11,8 @@ export const Layout = () => {
   const [loginWithTg, { isLoading: tgIsLoading }] = useLoginWithTgMutation();
   const { isLoading: profileIsLoading } = useGetMyProfileQuery(canGetProfile ? undefined : skipToken);
 
+  // const navigate = useNavigate();
+
   useEffect(() => {
     if (WebApp.platform !== 'unknown') {
       WebApp.ready();
@@ -18,6 +20,7 @@ export const Layout = () => {
       WebApp.disableVerticalSwipes();
       WebApp.MainButton.hideProgress();
       WebApp.setBackgroundColor('#f2f2f2');
+      WebApp.setBottomBarColor('#f2f2f2');
 
       if (!WebApp.isExpanded) {
         WebApp.expand();
@@ -25,6 +28,13 @@ export const Layout = () => {
 
       if (WebApp.initData) {
         loginWithTg({ initData: WebApp.initData });
+      }
+
+      const startParam = WebApp.initDataUnsafe.start_param?.split('get-');
+
+      if (startParam?.length === 2) {
+        console.log(startParam[1]);
+        // navigate(`${Navigation.home}/${startParam[1].replaceAll('=', ',')}`);
       }
     }
   }, []);

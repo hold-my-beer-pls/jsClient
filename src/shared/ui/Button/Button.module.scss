@@ -33,13 +33,13 @@ button {
 
   @media (hover: hover) {
     &:hover {
-      background-color: #faf5d9;
+      background-color: var(--active-secondary-color);
     }
   }
 
   @media (hover: none) {
     &:active {
-      background-color: #faf5d9;
+      background-color: var(--active-secondary-color);
     }
   }
 }
@@ -47,6 +47,6 @@ button {
 .disabled,
 .loading {
   pointer-events: none;
-  background-color: #e7e7e7;
-  color: #b9b7b7
+  background-color: var(--disabled-color);
+  color: var(--text-disabled-color)
 }

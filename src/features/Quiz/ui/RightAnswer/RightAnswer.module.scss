@@ -4,15 +4,15 @@
   width: clamp(300px, 80%, 450px);
 
   .label {
-    font-size: 1.125rem;
+    font-size: var(--font-size-m);
     font-weight: 500;
 
     &__right {
-      color: #71E079;
+      color: var(--success-color)
     }
 
     &__wrong {
-      color: #EE686F;
+      color: var(--error-color);
       margin-bottom: 20px;
     }
   }

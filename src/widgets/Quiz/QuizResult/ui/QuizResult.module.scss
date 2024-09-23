@@ -6,7 +6,7 @@
   height: 100vh;
 
   .label {
-    font-size: 1.25rem;
+    font-size: var(--font-size-l);
     font-weight: 500;
     margin-bottom: 20px;
   }

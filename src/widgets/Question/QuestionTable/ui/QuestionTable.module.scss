@@ -24,7 +24,7 @@
 
     &_text {
       text-align: start;
-      font-size: 1.25rem;
+      font-size: var(--font-size-l);
       width: 100%;
       white-space: nowrap;
       overflow: hidden;
@@ -51,7 +51,7 @@
       width: 40px;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: var(--hover-primary-color);
         border-radius: 6px;
       }
 

@@ -4,6 +4,7 @@ export const enum Navigation {
   usersList = 'users',
   profile = '/profile',
   quiz = '/quiz',
+  result = 'result',
   home = '/',
   id = ':id',
   other = '*',

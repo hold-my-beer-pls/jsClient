@@ -1,4 +1,4 @@
-import { memo, ReactNode, useEffect, useState } from 'react';
+import { KeyboardEvent, memo, ReactNode, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
@@ -16,6 +16,7 @@ interface Props {
 export const Modal = memo(({ isOpen, onClose, onAfterClose, children, className }: Props) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [canCloseSidebar, setCanCloseSidebar] = useState(false);
+  const modalWrapperRef = useRef<HTMLDivElement | null>(null);
   const portal = document.body;
 
   const isMobile = useIsMobile();
@@ -38,11 +39,19 @@ export const Modal = memo(({ isOpen, onClose, onAfterClose, children, className 
     }
   }, [isOpen]);
 
+  const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  };
+
   const handleAnimationEnd = () => {
     if (canCloseSidebar) {
       setInternalIsOpen(false);
       setCanCloseSidebar(false);
       onAfterClose?.();
+    } else {
+      modalWrapperRef.current?.focus();
     }
   };
 
@@ -58,7 +67,10 @@ export const Modal = memo(({ isOpen, onClose, onAfterClose, children, className 
         className,
       )}
       onAnimationEnd={handleAnimationEnd}
+      onKeyUp={handleKeyUp}
       onClick={onClose}
+      tabIndex={-1}
+      ref={modalWrapperRef}
       role="presentation"
     >
       <div className={styles.modal} onClick={(e) => e.stopPropagation()} role="presentation">

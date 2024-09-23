@@ -1,27 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import cn from 'classnames';
 import styles from './Complete.module.scss';
 import { Button, Dropdown } from '@/shared/ui';
-import CloseCircleIcon from '@/shared/assets/icons/close-circle.svg';
-import { useIsMobile } from '@/shared/lib/hooks';
+import { Navigation } from '@/shared/constants';
 
 export const Complete = () => {
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
 
   return (
-    <Dropdown placement="bottom-start" className={cn(styles.dropdown, { [styles.mobileDropdown]: isMobile })}>
-      {isMobile ? (
-        <div className={styles.mobileClose}>
-          <CloseCircleIcon />
-        </div>
-      ) : (
-        <Button>Завершить</Button>
-      )}
+    <Dropdown placement="bottom-start" className={styles.dropdown}>
+      <Button>Завершить</Button>
       <div className={styles.content}>
-        <div className={styles.content_title}>Действительно хотите завершить?</div>
+        <div className={styles.content_title}>Действительно хотите завершить тест?</div>
         <div className={styles.content_actions}>
-          <Button onClick={() => navigate('/')}>Да</Button>
+          <Button onClick={() => navigate(Navigation.home)}>Да</Button>
           <Button theme="secondary">Отмена</Button>
         </div>
       </div>

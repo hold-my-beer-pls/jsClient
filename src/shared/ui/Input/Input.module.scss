@@ -6,16 +6,16 @@
   &_label {
     font-weight: 500;
     margin-bottom: 12px;
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
   }
 
   input {
     background-color: #fff;
     color: var(--text-primary-color);
     border: none;
-    border: 2px solid #f7df1c;
+    border: 2px solid var(--primary-color);
     border-radius: 7px;
-    font-size: 1rem;
+    font-size: var(--font-size);
     padding: 15px 10px;
     margin-bottom: 5px;
     font-family: "Roboto", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -24,6 +24,6 @@
 
   input:focus {
     outline: none;
-    border-color: #ffbb19;
+    border-color: var(--active-primary-color);
   }
 }

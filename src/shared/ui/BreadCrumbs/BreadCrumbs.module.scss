@@ -13,15 +13,15 @@
         content: "/";
       }
 
-      font-size: 1.125rem;
+      font-size: var(--font-size-m);
 
       a {
         font-weight: 400;
         padding: 10px 10px;
-        color: #838383;
+        color: var(--text-secondary-color);
 
         &:hover {
-          background-color: #eeeeee;
+          background-color: var(--hover-primary-color);
           border-radius: 4px;
         }
       }

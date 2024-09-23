@@ -2,9 +2,13 @@ export const selectQuizQuestions = (state: RootState) => ({
   currentQuestion: state.quiz.currentQuestion,
   questions: state.quiz.questions,
   options: state.quiz.setting,
+  hasTimer: state.quiz.hasTimer,
 });
 
-export const selectOptions = (state: RootState) => state.quiz.setting;
+export const selectOptions = (state: RootState) => ({
+  options: state.quiz.setting,
+  hasTimer: state.quiz.hasTimer,
+});
 
 export const selectAnswers = (state: RootState) => ({
   isLastQuestion: state.quiz.isLastQuestion,

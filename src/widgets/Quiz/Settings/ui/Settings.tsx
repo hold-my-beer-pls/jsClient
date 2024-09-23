@@ -1,5 +1,6 @@
+import { shallowEqual } from 'react-redux';
 import styles from './Settings.module.scss';
-import { ComplexitySetting, NumberQuestion, Theme } from '@/features/Quiz';
+import { ComplexitySetting, NumberQuestion, Theme, Timer } from '@/features/Quiz';
 import { Button, Modal } from '@/shared/ui';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectOptions } from '@/entities/Quiz';
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export const Settings = ({ isOpen, onClose }: Props) => {
-  const options = useAppSelector(selectOptions);
+  const { options, hasTimer } = useAppSelector(selectOptions, shallowEqual);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -20,6 +21,7 @@ export const Settings = ({ isOpen, onClose }: Props) => {
           <ComplexitySetting defaultOption={options.complexity} />
           <Theme defaultOption={options.theme} />
           <NumberQuestion defaultOption={options.question} />
+          <Timer defaultOption={hasTimer} />
         </div>
         <Button onClick={onClose} className={styles.saveButton}>
           Сохранить

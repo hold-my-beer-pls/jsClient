@@ -21,7 +21,7 @@ export const Header = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/');
+    navigate(Navigation.home);
   };
 
   return (

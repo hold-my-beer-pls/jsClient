@@ -16,19 +16,17 @@
   }
 }
 
-.mobileDropdown {
-  position: fixed;
+.mobileClose {
+  cursor: pointer;
+  position: absolute;
   top: 20px;
   right: 20px;
+  width: 32px;
+  height: 32px;
 
-  .mobileClose {
+  svg {
+    stroke: var(--text-primary-color);
     width: 32px;
     height: 32px;
-
-    svg {
-      stroke: #222222;
-      width: 32px;
-      height: 32px;
-    }
   }
 }

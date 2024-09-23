@@ -13,6 +13,7 @@ interface QuizState {
   quizResult: number;
   isLastQuestion: boolean;
   setting: QuestionRequest;
+  hasTimer: boolean;
 }
 
 const initialState: QuizState = {
@@ -24,6 +25,7 @@ const initialState: QuizState = {
   currentQuestion: null,
   currentAnswer: null,
   isLastQuestion: false,
+  hasTimer: false,
   setting: {},
 };
 
@@ -42,9 +44,7 @@ export const quizSlice = createSlice({
 
       if (currentQuestionNumber === -1) {
         state.currentQuestion = null;
-      } else if (currentQuestionNumber === state.questions.length - 1) {
-        state.currentQuestion = null;
-      } else if (currentQuestionNumber !== -1) {
+      } else {
         state.currentQuestion = state.questions[currentQuestionNumber + 1];
 
         if (currentQuestionNumber === state.questions.length - 2) {
@@ -68,6 +68,9 @@ export const quizSlice = createSlice({
       const options = { ...state.setting };
       delete options[payload];
       state.setting = { ...options };
+    },
+    setHasTimer(state, { payload }: PayloadAction<boolean>) {
+      state.hasTimer = payload;
     },
     reset: (state) => {
       state.userAnswers = {};
@@ -103,5 +106,13 @@ export const quizSlice = createSlice({
   },
 });
 
-export const { removeSettingOption, setAnswer, setNextQuestion, setNextAnswer, setStage, reset, addSettingOption } =
-  quizSlice.actions;
+export const {
+  setHasTimer,
+  removeSettingOption,
+  setAnswer,
+  setNextQuestion,
+  setNextAnswer,
+  setStage,
+  reset,
+  addSettingOption,
+} = quizSlice.actions;

@@ -1,1 +1,3 @@
-export { default } from './ui/AdminUsers.tsx';
+import { lazy } from 'react';
+
+export const AdminUsers = lazy(() => import('./ui/AdminUsers.tsx'));

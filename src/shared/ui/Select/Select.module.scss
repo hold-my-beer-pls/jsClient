@@ -7,14 +7,14 @@
   /* Reset */
   appearance: none;
   outline: 0;
-  font-size: 1rem;
+  font-size: var(--font-size);
   font-family: inherit;
   /* Personalize */
   //width: 20rem;
   padding: 0.6em 1.2em;
   background: inherit;
   color: var(--text-primary-color);
-  border: #f7df1c solid 1px;
+  border: var(--primary-color) solid 1px;
   border-radius: 8px;
   //box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;

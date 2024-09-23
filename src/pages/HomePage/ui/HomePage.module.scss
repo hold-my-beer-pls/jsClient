@@ -9,13 +9,13 @@
 
   .preview {
     &_label {
-      font-size: clamp(2rem, 6vw, 3rem);
+      font-size: clamp(var(--font-size-2xl), 6vw, var(--font-size-3xl));
       font-weight: 500;
       margin-bottom: 20px;
     }
 
     &_description {
-      font-size: 1.125rem;
+      font-size: var(--font-size-m);
       font-weight: 300;
     }
   }
@@ -34,7 +34,7 @@
   }
 
   .questionLabel {
-    font-size: 1.25rem;
+    font-size: var(--font-size-l);
     font-weight: 500;
     margin-bottom: 20px;
   }

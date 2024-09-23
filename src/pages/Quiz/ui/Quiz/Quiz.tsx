@@ -10,9 +10,7 @@ const Quiz = () => {
   const stage = useAppSelector(selectStage);
 
   useEffect(() => {
-    return () => {
-      dispatch(reset());
-    };
+    dispatch(reset());
   }, []);
 
   if (stage === quizStage.result) {

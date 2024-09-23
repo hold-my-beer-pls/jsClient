@@ -1,4 +1,5 @@
 import { shallowEqual } from 'react-redux';
+import { useMemo } from 'react';
 import styles from './QuizAnswers.module.scss';
 import { Button, Error } from '@/shared/ui';
 import { Progress, Question, RightAnswer } from '@/features/Quiz';
@@ -11,6 +12,10 @@ export const QuizAnswers = () => {
   const { rightAnswers, currentAnswer, userAnswers } = useAppSelector(selectAnswers, shallowEqual);
   const currentQuestionNumber = rightAnswers.findIndex(({ id }) => id === currentAnswer?.id);
   const isMobile = useIsMobile();
+
+  const correctList = useMemo(() => {
+    return rightAnswers.map((item) => item.correct);
+  }, [rightAnswers]);
 
   const handleSetNextAnswer = (state: 'prev' | 'next') => {
     dispatch(setNextAnswer(state === 'prev' ? -1 : 1));
@@ -38,7 +43,11 @@ export const QuizAnswers = () => {
             </Button>
           </div>
         )}
-        <Progress currentPosition={currentQuestionNumber + 1} numberQuestions={rightAnswers.length} />
+        <Progress
+          currentPosition={currentQuestionNumber + 1}
+          numberQuestions={rightAnswers.length}
+          resultList={correctList}
+        />
         {!isMobile && <div />}
       </div>
       <Question question={currentAnswer?.question || ''} code={currentAnswer?.code || ''} />

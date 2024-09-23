@@ -8,7 +8,7 @@
     box-shadow: 0 2px 5px 0 rgba(0 0 0 / 10%);
 
     &:before {
-      background: linear-gradient(to right, transparent 0%, #cccccc, transparent 100%);
+      background: linear-gradient(to right, transparent 0%, var(--hover-primary-color), transparent 100%);
     }
   }
 }
@@ -33,16 +33,20 @@
   }
 
   .alert {
-    background-color: color-mix(in srgb, #272F38, transparent 10%);
+    background-color: color-mix(in srgb, var(--secondary-color), transparent 10%);
     margin: 20px;
     width: 100%;
     border-radius: 8px;
     padding: 16px;
     display: flex;
     align-items: center;
+    color: var(--text-primary-color);
+    cursor: pointer;
 
     .icon {
       margin-right: 10px;
+      display: flex;
+      align-items: center;
 
       svg {
         width: 25px;
@@ -50,15 +54,15 @@
       }
 
       &.success svg {
-        stroke: #71E079;
+        stroke: var(--success-color);
       }
 
       &.info svg {
-        stroke: #F3C04B;
+        stroke: var(--info-color);
       }
 
       &.error svg {
-        stroke: #EE686F;
+        stroke: var(--error-color);
       }
 
       &.label svg {

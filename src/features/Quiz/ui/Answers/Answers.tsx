@@ -1,22 +1,41 @@
 import cn from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import WebApp from '@twa-dev/sdk';
 import styles from './Answers.module.scss';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { selectAnswers, setAnswer, setNextQuestion, useCompleteQuizMutation } from '@/entities/Quiz';
-import { Button, LoaderJs } from '@/shared/ui';
+import { selectAnswers, setAnswer, setNextQuestion } from '@/entities/Quiz';
+import { TelegramButton } from '@/entities/Telegram';
+import { Navigation } from '@/shared/constants';
+import { TIMER } from '@/features/Quiz/model/constants.ts';
 
 interface Props {
   answers: { id: string; text: string }[];
   questionId: string;
+  hasTimer?: boolean;
   demo?: boolean;
 }
 
-export const Answers = ({ answers, questionId, demo = false }: Props) => {
+export const Answers = ({ answers, questionId, hasTimer = false, demo = false }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
-  const { isLastQuestion, userAnswers } = useAppSelector(selectAnswers, shallowEqual);
-  const [completeQuiz, { isLoading }] = useCompleteQuizMutation();
+  const { isLastQuestion } = useAppSelector(selectAnswers, shallowEqual);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => WebApp?.MainButton.hide();
+  }, []);
+
+  useEffect(() => {
+    if (hasTimer) {
+      const timer = setTimeout(() => {
+        handleNextQuestion();
+      }, TIMER);
+
+      return () => clearInterval(timer);
+    }
+  }, [questionId]);
 
   const handleNextQuestion = () => {
     dispatch(setAnswer({ questionId, answerId: selectedId }));
@@ -24,18 +43,9 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
     setSelectedId(null);
 
     if (isLastQuestion) {
-      const answersList = Object.entries(userAnswers).map((item) => ({
-        questionId: item[0],
-        selectedAnswerId: item[1],
-      }));
-      answersList.push({ questionId, selectedAnswerId: selectedId });
-      completeQuiz({ answers: answersList });
+      navigate(`${Navigation.quiz}/${Navigation.result}`);
     }
   };
-
-  if (isLoading) {
-    return <LoaderJs forPage />;
-  }
 
   return (
     <>
@@ -53,12 +63,19 @@ export const Answers = ({ answers, questionId, demo = false }: Props) => {
       </div>
       {!demo && (
         <div className={styles.action}>
-          <Button className={styles.action_next} onClick={handleNextQuestion} disabled={!selectedId}>
-            {isLastQuestion ? 'Завершить' : 'Ответить'}
-          </Button>
-          <Button className={styles.action_next} onClick={handleNextQuestion} theme="secondary">
-            Нет ответа
-          </Button>
+          <TelegramButton
+            className={styles.action_next}
+            onClick={handleNextQuestion}
+            disabled={!selectedId}
+            text={isLastQuestion ? 'Завершить' : 'Ответить'}
+          />
+          <TelegramButton
+            className={styles.action_next}
+            onClick={handleNextQuestion}
+            theme="secondary"
+            text="Нет ответа"
+            position="right"
+          />
         </div>
       )}
     </>

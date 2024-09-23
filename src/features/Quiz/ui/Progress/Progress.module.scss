@@ -6,11 +6,7 @@
   .status {
     &_step {
       font-weight: 500;
-      font-size: 1.125rem;
-    }
-
-    &_theme {
-
+      font-size: var(--font-size-m);
     }
   }
 
@@ -25,14 +21,26 @@
       width: 10px;
       height: 10px;
       border-radius: 10px;
-      background-color: #838383;
+      background-color: var(--text-secondary-color);
 
       &__past {
-        background-color: var(--primary-color);
+        background-color: var(--info-color);
       }
 
       &__current {
-        background-color: #569cff;
+        background-color: var(--helper-color);
+      }
+
+      &__result {
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--helper-color), transparent 80%);
+      }
+
+      &__correct {
+        background-color: var(--success-color);
+      }
+
+      &__wrong {
+        background-color: var(--error-color);
       }
     }
   }

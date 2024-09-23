@@ -14,16 +14,38 @@
 
     color-scheme: light dark;
     color: var(--text-primary-color);
-    background-color: #f2f2f2;
+    background-color: var(--background-color);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    /*цвета*/
+    --background-color: #f2f2f2;
     --primary-color: #f7df1c;
     --secondary-color: #ffec73;
+    --dark-color: #857f5b;
+    --hover-primary-color: #eeeeee;
+    --disabled-color: #e7e7e7;
+    --text-disabled-color: #b9b7b7;
     --text-primary-color: #222222;
+    --text-secondary-color: #838383;
+    --active-primary-color: #ffbb19;
+    --active-secondary-color: #faf5d9;
+    --success-color: #71E079;
+    --info-color: #F3C04B;
+    --error-color: #EE686F;
+    --helper-color: #569cff;
+
+    /* размеры шрифтов */
+    --font-size: 1rem;
+    --font-size-s: 1.115rem;
+    --font-size-m: 1.125rem;
+    --font-size-l: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 3rem;
 }
 
 a {
@@ -148,8 +170,8 @@ input[type='checkbox'] {
             border: 2px solid var(--active-inner);
             border-top: 0;
             border-left: 0;
-            left: 7px;
-            top: 4px;
+            left: 6px;
+            top: 3px;
             transform: rotate(var(--r, 20deg));
         }
 

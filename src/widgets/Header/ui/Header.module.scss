@@ -25,14 +25,14 @@
           line-height: 1.2;
 
           &:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: var(--hover-primary-color);
             border-radius: 6px;
           }
 
           .trigger_icon {
             background-color: inherit;
-            color: #857f5b;
-            border: 1px solid #857f5b;
+            color: var(--dark-color);
+            border: 1px solid var(--dark-color);
             width: 20px;
             height: 20px;
             border-radius: 20px;
@@ -51,19 +51,10 @@
             width: calc(100% - 16px);
 
             &:hover {
-              background-color: rgb(0, 0, 0, 0.05);
+              background-color: var(--hover-primary-color)
             }
           }
         }
-      }
-
-      .dropdownWord {
-        color: #857f5b;
-        border: 1px solid #857f5b;
-        width: 20px;
-        height: 20px;
-        border-radius: 20px;
-        font-weight: 500;
       }
 
       &_icon {
@@ -76,7 +67,7 @@
         line-height: 1.2;
 
         &:hover {
-          background-color: rgba(0, 0, 0, 0.05);
+          background-color: var(--hover-primary-color);
           border-radius: 6px;
           stroke: rgba(0, 0, 0, 0.9);
         }
@@ -84,7 +75,7 @@
         svg {
           width: 24px;
           height: 24px;
-          stroke: #857f5b;
+          stroke: var(--dark-color);
         }
       }
     }

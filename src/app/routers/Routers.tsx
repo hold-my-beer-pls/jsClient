@@ -6,14 +6,14 @@ import { Navigation } from '@/shared/constants';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { selectUser } from '@/entities/User';
 import { QuestionPreview } from '@/widgets/Question/QuestionPreview';
-import { LoaderJs } from '@/shared/ui';
+import { Error, LoaderJs } from '@/shared/ui';
+import { Quiz, Result } from '@/pages/Quiz';
+import { AdminUsers } from '@/pages/AdminUsers';
 
 const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
 const Profile = lazy(() => import('@/pages/Profile'));
-const Quiz = lazy(() => import('@/pages/Quiz'));
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const AdminQuestions = lazy(() => import('@/pages/AdminQuestions'));
-const AdminUsers = lazy(() => import('@/pages/AdminUsers'));
 
 export const Routers = () => {
   const { isAdmin } = useAppSelector(selectUser);
@@ -36,8 +36,11 @@ export const Routers = () => {
               </Route>
             )}
           </Route>
-          <Route path={Navigation.quiz} element={<Quiz />} />
-          <Route path={Navigation.other} element={<div>not found</div>} />
+          <Route path={Navigation.quiz}>
+            <Route index element={<Quiz />} />
+            <Route path={Navigation.result} element={<Result />} />
+          </Route>
+          <Route path={Navigation.other} element={<Error forPage />} />
         </Route>
       </Routes>
     </Suspense>
