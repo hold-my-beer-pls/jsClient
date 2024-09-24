@@ -27,16 +27,6 @@ export const Answers = ({ answers, questionId, hasTimer = false, demo = false }:
     return () => WebApp?.MainButton.hide();
   }, []);
 
-  useEffect(() => {
-    if (hasTimer) {
-      const timer = setTimeout(() => {
-        handleNextQuestion();
-      }, TIMER);
-
-      return () => clearInterval(timer);
-    }
-  }, [questionId]);
-
   const handleNextQuestion = () => {
     dispatch(setAnswer({ questionId, answerId: selectedId }));
     dispatch(setNextQuestion());
@@ -46,6 +36,16 @@ export const Answers = ({ answers, questionId, hasTimer = false, demo = false }:
       navigate(`${Navigation.quiz}/${Navigation.result}`);
     }
   };
+
+  useEffect(() => {
+    if (hasTimer) {
+      const timer = setTimeout(() => {
+        handleNextQuestion();
+      }, TIMER);
+
+      return () => clearInterval(timer);
+    }
+  }, [questionId]);
 
   return (
     <>
@@ -72,7 +72,7 @@ export const Answers = ({ answers, questionId, hasTimer = false, demo = false }:
           <TelegramButton
             className={styles.action_next}
             onClick={handleNextQuestion}
-            theme="secondary"
+            type="secondary"
             text="Нет ответа"
             position="right"
           />

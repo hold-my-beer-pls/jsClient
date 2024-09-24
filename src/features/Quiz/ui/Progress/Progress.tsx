@@ -51,9 +51,9 @@ export const Progress = ({ numberQuestions, currentPosition, resultList, hasTime
         ))}
       </div>
       {hasTimer && (
-        <div>
+        <div className={styles.timer}>
           Осталось времени &nbsp;
-          {time}
+          <span className={cn(styles.timer_default, { [styles.timer_red]: time <= 6 })}>{time}</span>
         </div>
       )}
     </div>

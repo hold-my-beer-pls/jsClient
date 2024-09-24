@@ -1,5 +1,5 @@
 import { shallowEqual } from 'react-redux';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import WebApp from '@twa-dev/sdk';
 import styles from './QuizAnswers.module.scss';
 import { Button, Error } from '@/shared/ui';
@@ -15,9 +15,15 @@ export const QuizAnswers = () => {
   const currentQuestionNumber = rightAnswers.findIndex(({ id }) => id === currentAnswer?.id);
   const isMobile = useIsMobile();
 
+  const nextButtonIsDisabled = currentQuestionNumber === rightAnswers.length - 1;
+
   const correctList = useMemo(() => {
     return rightAnswers.map((item) => item.correct);
   }, [rightAnswers]);
+
+  useEffect(() => {
+    return () => WebApp?.MainButton.hide();
+  }, []);
 
   const handleSetNextAnswer = (state: 'prev' | 'next') => {
     dispatch(setNextAnswer(state === 'prev' ? -1 : 1));
@@ -64,12 +70,15 @@ export const QuizAnswers = () => {
           className={styles.actions_item}
           onClick={() => handleSetNextAnswer('prev')}
           disabled={!currentQuestionNumber}
+          theme={currentQuestionNumber ? 'primary' : 'secondary'}
         />
         <TelegramButton
           text="Дальше"
           className={styles.actions_item}
           onClick={() => handleSetNextAnswer('next')}
-          disabled={currentQuestionNumber === rightAnswers.length - 1}
+          disabled={nextButtonIsDisabled}
+          type="secondary"
+          theme={!nextButtonIsDisabled ? 'primary' : 'secondary'}
         />
         <Button className={styles.actions_item} theme="secondary" onClick={handleFeedback}>
           Нашли ошибку?

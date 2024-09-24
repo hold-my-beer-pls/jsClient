@@ -18,7 +18,7 @@ export const Timer = ({ defaultOption }: Props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title} onClick={() => checkboxRef.current?.click()}>
+      <div className={styles.title} onClick={() => checkboxRef.current?.click()} role="presentation">
         Таймер
         <span>(30 секунд)</span>
       </div>

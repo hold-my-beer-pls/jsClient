@@ -1,10 +1,11 @@
 import { MainButton, SecondaryButton } from '@twa-dev/sdk/react';
 import WebApp from '@twa-dev/sdk';
+import { useMemo } from 'react';
 import { Button } from '@/shared/ui';
 
 const styles = getComputedStyle(document.documentElement);
 const buttonColor = styles.getPropertyValue('--primary-color');
-// const buttonSecondaryColor = styles.getPropertyValue('--secondary-color');
+const buttonSecondaryColor = styles.getPropertyValue('--background-color');
 const buttonTextColor = styles.getPropertyValue('--text-primary-color');
 const buttonDisabledColor = styles.getPropertyValue('--disabled-color');
 const buttonDisabledTextColor = styles.getPropertyValue('--text-secondary-color');
@@ -15,6 +16,7 @@ interface Props {
   disabled?: boolean;
   isLoading?: boolean;
   className?: string;
+  type?: 'primary' | 'secondary';
   theme?: 'primary' | 'secondary';
   position?: 'top' | 'left' | 'bottom' | 'right';
 }
@@ -25,10 +27,22 @@ export const TelegramButton = ({
   disabled,
   isLoading,
   className,
+  type = 'primary',
   theme = 'primary',
   position = 'bottom',
 }: Props) => {
-  const color = disabled || isLoading ? buttonDisabledColor : buttonColor;
+  const color = useMemo(() => {
+    if (disabled || isLoading) {
+      return buttonDisabledColor;
+    }
+
+    if (theme === 'primary') {
+      return buttonColor;
+    }
+
+    return buttonSecondaryColor;
+  }, [disabled, isLoading, theme]);
+
   const textColor = disabled || isLoading ? buttonDisabledTextColor : buttonTextColor;
   if (WebApp.platform === 'unknown') {
     return (
@@ -38,7 +52,7 @@ export const TelegramButton = ({
     );
   }
 
-  return theme === 'primary' ? (
+  return type === 'primary' ? (
     <MainButton
       text={text}
       onClick={onClick}
@@ -53,7 +67,7 @@ export const TelegramButton = ({
       onClick={onClick}
       disabled={disabled}
       progress={isLoading}
-      color="#f2f2f2"
+      color={color}
       textColor={textColor}
       position={position}
     />
