@@ -1,11 +1,13 @@
 import { shallowEqual } from 'react-redux';
 import { useMemo } from 'react';
+import WebApp from '@twa-dev/sdk';
 import styles from './QuizAnswers.module.scss';
 import { Button, Error } from '@/shared/ui';
 import { Progress, Question, RightAnswer } from '@/features/Quiz';
 import { useAppDispatch, useAppSelector, useIsMobile } from '@/shared/lib/hooks';
 import { quizStage, selectAnswers, setNextAnswer, setStage } from '@/entities/Quiz';
 import ArrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
+import { TelegramButton } from '@/entities/Telegram';
 
 export const QuizAnswers = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +25,10 @@ export const QuizAnswers = () => {
 
   const handleGoBack = () => {
     dispatch(setStage(quizStage.result));
+  };
+
+  const handleFeedback = () => {
+    WebApp.openTelegramLink('https://t.me/duk_agent');
   };
 
   if (!rightAnswers.length || !currentAnswer) {
@@ -53,21 +59,19 @@ export const QuizAnswers = () => {
       <Question question={currentAnswer?.question || ''} code={currentAnswer?.code || ''} />
       <RightAnswer answerEntity={currentAnswer} userAnswerId={userAnswers[currentAnswer.id]} />
       <div className={styles.actions}>
-        <Button
+        <TelegramButton
+          text="Назад"
           className={styles.actions_item}
           onClick={() => handleSetNextAnswer('prev')}
           disabled={!currentQuestionNumber}
-        >
-          Назад
-        </Button>
-        <Button
+        />
+        <TelegramButton
+          text="Дальше"
           className={styles.actions_item}
           onClick={() => handleSetNextAnswer('next')}
           disabled={currentQuestionNumber === rightAnswers.length - 1}
-        >
-          Дальше
-        </Button>
-        <Button className={styles.actions_item} theme="secondary" onClick={() => alert('и чо нахуй?')}>
+        />
+        <Button className={styles.actions_item} theme="secondary" onClick={handleFeedback}>
           Нашли ошибку?
         </Button>
       </div>

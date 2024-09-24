@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WebApp from '@twa-dev/sdk';
 import { useGetMyProfileQuery, useLoginWithTgMutation } from '@/entities/User';
 import { NotificationSystem } from '@/widgets/NotificationSystem';
@@ -11,7 +11,6 @@ export const Layout = () => {
   const canGetProfile = !!localStorage.getItem('accessToken') && WebApp.platform === 'unknown';
   const [loginWithTg, { isLoading: tgIsLoading }] = useLoginWithTgMutation();
   const { isLoading: profileIsLoading } = useGetMyProfileQuery(canGetProfile ? undefined : skipToken);
-  const [qwe, setQwe] = useState('1');
 
   const navigate = useNavigate();
 
@@ -35,7 +34,6 @@ export const Layout = () => {
       const startParam = WebApp.initDataUnsafe.start_param?.split('get-');
 
       if (startParam?.length === 2) {
-        setQwe(startParam[1]);
         navigate(`${Navigation.quiz}/${startParam[1].replaceAll('=', ',')}`);
       }
     }
@@ -48,7 +46,6 @@ export const Layout = () => {
   return (
     <>
       <Outlet />
-      {qwe}
       <NotificationSystem />
     </>
   );
