@@ -10,6 +10,13 @@ export const quizApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: 0,
     }),
+    getQuestionsByIds: build.query<QuestionResponse[], string>({
+      query: (ids) => ({
+        url: '/questions/ids',
+        params: { ids },
+      }),
+      keepUnusedDataFor: 0,
+    }),
     completeQuiz: build.mutation<AnswersResponse[], AnswerRequest>({
       query: (body) => ({
         url: '/questions/answers',
@@ -20,4 +27,4 @@ export const quizApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetQuestionsQuery, useCompleteQuizMutation } = quizApi;
+export const { useGetQuestionsQuery, useGetQuestionsByIdsQuery, useCompleteQuizMutation } = quizApi;

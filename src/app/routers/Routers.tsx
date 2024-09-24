@@ -39,6 +39,7 @@ export const Routers = () => {
           <Route path={Navigation.quiz}>
             <Route index element={<Quiz />} />
             <Route path={Navigation.result} element={<Result />} />
+            <Route path=":ids" element={<Quiz />} />
           </Route>
           <Route path={Navigation.other} element={<Error forPage />} />
         </Route>

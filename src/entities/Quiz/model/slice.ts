@@ -90,6 +90,10 @@ export const quizSlice = createSlice({
         state.currentQuestion = payload[0];
         state.questions = payload;
       })
+      .addMatcher(quizApi.endpoints.getQuestionsByIds.matchFulfilled, (state, { payload }) => {
+        state.currentQuestion = payload[0];
+        state.questions = payload;
+      })
       .addMatcher(quizApi.endpoints.completeQuiz.matchFulfilled, (state, { payload }) => {
         state.rightAnswers = payload;
         state.currentAnswer = payload[0];
