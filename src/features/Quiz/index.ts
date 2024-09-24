@@ -8,3 +8,4 @@ export { ComplexitySetting } from './ui/Compexity/Complexity.tsx';
 export { NumberQuestion } from './ui/NumberQuestion/NumberQuestion.tsx';
 export { Theme } from './ui/Theme/Theme.tsx';
 export { Timer } from './ui/Timer/Timer.tsx';
+export { AnswersBackButton } from './ui/AnswersBackButton/AnswersBackButton.tsx';

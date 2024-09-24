@@ -3,10 +3,9 @@ import { useEffect, useMemo } from 'react';
 import WebApp from '@twa-dev/sdk';
 import styles from './QuizAnswers.module.scss';
 import { Button, Error } from '@/shared/ui';
-import { Progress, Question, RightAnswer } from '@/features/Quiz';
+import { AnswersBackButton, Progress, Question, RightAnswer } from '@/features/Quiz';
 import { useAppDispatch, useAppSelector, useIsMobile } from '@/shared/lib/hooks';
 import { quizStage, selectAnswers, setNextAnswer, setStage } from '@/entities/Quiz';
-import ArrowLeftIcon from '@/shared/assets/icons/arrow-left.svg';
 import { TelegramButton } from '@/entities/Telegram';
 
 export const QuizAnswers = () => {
@@ -44,17 +43,7 @@ export const QuizAnswers = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        {isMobile ? (
-          <div className={styles.mobileClose} onClick={handleGoBack} role="presentation">
-            <ArrowLeftIcon />
-          </div>
-        ) : (
-          <div>
-            <Button className={styles.actionsBlock_action} onClick={handleGoBack}>
-              Назад
-            </Button>
-          </div>
-        )}
+        <AnswersBackButton onClick={handleGoBack} />
         <Progress
           currentPosition={currentQuestionNumber + 1}
           numberQuestions={rightAnswers.length}

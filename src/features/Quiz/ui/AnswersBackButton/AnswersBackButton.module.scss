@@ -1,0 +1,13 @@
+.mobileClose {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 22px;
+  height: 22px;
+
+  svg {
+    stroke: var(--text-primary-color);
+    width: 22px;
+    height: 22px;
+  }
+}
