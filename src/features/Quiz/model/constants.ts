@@ -1,1 +1,1 @@
-export const TIMER = 300_000;
+export const TIMER = 30_000;

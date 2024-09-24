@@ -71,6 +71,7 @@ export const QuizAnswers = () => {
           onClick={() => handleSetNextAnswer('prev')}
           disabled={!currentQuestionNumber}
           theme={currentQuestionNumber ? 'primary' : 'secondary'}
+          position="left"
         />
         <TelegramButton
           text="Дальше"
@@ -79,6 +80,7 @@ export const QuizAnswers = () => {
           disabled={nextButtonIsDisabled}
           type="secondary"
           theme={!nextButtonIsDisabled ? 'primary' : 'secondary'}
+          position="right"
         />
         <Button className={styles.actions_item} theme="secondary" onClick={handleFeedback}>
           Нашли ошибку?
