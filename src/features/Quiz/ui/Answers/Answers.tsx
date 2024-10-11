@@ -66,14 +66,14 @@ export const Answers = ({ answers, questionId, hasTimer = false, demo = false }:
           <TelegramButton
             className={styles.action_next}
             onClick={handleNextQuestion}
-            disabled={!selectedId}
-            text={isLastQuestion ? 'Завершить' : 'Ответить'}
+            type="secondary"
+            text="Нет ответа"
           />
           <TelegramButton
             className={styles.action_next}
             onClick={handleNextQuestion}
-            type="secondary"
-            text="Нет ответа"
+            disabled={!selectedId}
+            text={isLastQuestion ? 'Завершить' : 'Ответить'}
             position="right"
           />
         </div>
