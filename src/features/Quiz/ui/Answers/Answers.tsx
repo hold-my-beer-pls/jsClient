@@ -68,6 +68,7 @@ export const Answers = ({ answers, questionId, hasTimer = false, demo = false }:
             onClick={handleNextQuestion}
             type="secondary"
             text="Нет ответа"
+            position="left"
           />
           <TelegramButton
             className={styles.action_next}
